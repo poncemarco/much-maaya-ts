@@ -1,0 +1,55 @@
+---
+interface Props{
+    name: string
+    description: string
+    price: number
+    image: string | null
+    id: string
+    unit: string
+}
+
+const { name, description, price, image, id , unit} = Astro.props
+
+---
+
+<a 
+    href={`/catalogo/${id}/`}
+    class="rounded-lg border shadow-md bg-gray-800 broder-gray-700
+    hover:scale-105 hover:bg-gray-700 hover:border-gray-500 transition flex 
+    flex-col"
+    >
+    <picture class="flex justify-center p-4">
+        <img src={image} alt={name} class="mb-5 rounded-lg" />
+    </picture>
+    <header class="p-4 flex-grow">
+        <span 
+            class:list={[
+                "text-xs font-semibold mr-2 px-2.5 py-0.5 rounded",
+                {
+                    "bg-green-500": unit === 'CAJA ',
+                    "bg-red-500": unit === 'PZA'
+                }
+            ]}
+        >
+        {price.toFixed(2)}
+        </span>
+        <span 
+            class:list={[
+                "text-xs font-semibold mr-2 px-2.5 py-0.5 rounded",
+                {
+                    "bg-green-500": unit === 'CAJA ',
+                    "bg-red-500": unit === 'UNIDAD'
+                }
+            ]
+            }
+        >
+            {unit}
+        </span>
+        <h2 class="my-2 text-2xl font-bold tracking-tight text-white">
+            {name}
+        </h2>
+        <p class="mb-4 font-light text-gray-400">
+            {description}
+
+    </header>
+</a>

@@ -1,0 +1,19 @@
+---
+import { fetchItems } from '../services/items'
+import CardCatalogo from './CardCatalogo.astro';
+
+const items = await fetchItems();
+---
+
+<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    {items.map(({id, name, price, image_url, description, unit}) => (
+        <CardCatalogo 
+            id={id}
+            name={name}
+            price={price}
+            image={image_url}
+            description={description}
+            unit={unit}
+        />
+    ))}
+</div>
