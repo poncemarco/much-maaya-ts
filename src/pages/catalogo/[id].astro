@@ -5,6 +5,7 @@ import { type Datum } from "../../types/api";
 
 const { id } = Astro.params
 let item: Datum | null = null
+const prerender = true
 
 if(id) {
   item = await fetchItem({id})

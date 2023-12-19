@@ -1,0 +1,51 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import { fetchItems } from '../../services/items'
+import CardCatalogo from '../../components/CardCatalogo.astro'
+import { Pagination } from 'accessible-astro-components'
+import { Dropdown } from '../../components/Dropdown'
+
+export async function getStaticPaths({ paginate }: { paginate: any }) {
+    const items = await fetchItems()
+    return paginate(items, { pageSize: 12})
+}
+let items : any
+const { page } = Astro.props
+const { data , url, currentPage, total, size } = page
+console.log(page)
+
+if (!data) {
+	throw new Error('No items found')
+}
+
+items = data
+const { prev, next } = url
+---
+
+<Layout title="Muuch Maaya">
+	<div class="grid gap-8 lg:grid-cols-2">
+		<Dropdown client:visible/>
+		<Dropdown client:visible/>
+	</div>
+	<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+		{items.map(({id, name, price, image_url, description, unit}: {id: string, name: string, price: number, image_url: string, description: string, unit: string}) => (
+			<CardCatalogo 
+				id={id}
+				name={name}
+				price={price}
+				image={image_url}
+				description={description}
+				unit={unit}
+			/>
+		))}
+	</div><div class="mt-12 grid place-content-center"> <!-- Cambiado a 5 columnas -->
+        <Pagination
+          firstPage={prev ? '/catalogo' : null}
+          previousPage={prev ? prev : null}
+          nextPage={next ? next : null}
+          lastPage={next ? `/catalogo/${Math.round(total / size)}` : null}
+          currentPage={currentPage}
+          totalPages={Math.round(total / size)}
+        />
+      </div>
+</Layout>
