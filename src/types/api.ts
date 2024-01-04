@@ -254,3 +254,41 @@ const typeMap: any = {
         "PZA",
     ],
 };
+
+export interface Order {
+    items: Item[]
+    total_price: number
+    total_items: number
+  }
+  
+  export interface Item {
+    item: Item2
+    quantity: number
+    finished: boolean
+    paid: boolean
+    total_price: number
+    id: number
+  }
+  
+
+  export interface Order {
+    items: Item[]
+    total_price: number
+    total_items: number
+  }
+  
+  
+  export interface Item2 {
+    id: string
+    name: string
+    description: string
+    price: number
+    discount_price: any
+    brand?: string
+    unit: string
+    slug: string
+    quantity: number
+    category_title: string
+    image_url: string
+  }
+  
