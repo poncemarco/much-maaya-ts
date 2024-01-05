@@ -5,13 +5,12 @@ import TicketOrder from "../components/TicketOrder.astro";
 
 
 <Layout title="ticket">
-    <section class="py-8 px-4 mx-auto max-w-xl lg:py-16 lg:px-6">
+    <section class="py-8 mx-auto max-w-6xl lg:py-16 lg:px-6">
         <div class="mx-auto text-center mb-8 lg:mb-16">
             <h2 class="mb-4 text-5xl tracking-tight front-extrabold text-white">
                 Ticket
             </h2>
-            <TicketOrder />
+            <TicketOrder client:load/>
           </div>
     </section>
-
 </Layout>

@@ -49,5 +49,18 @@ order = items
                 </tr>
 		))}
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4" class="px-6 py-4 text-right font-medium text-gray-900 dark:text-white">
+                    Total
+                </td>
+                <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">
+                    ${order.reduce((acc: number, {total_price}: {total_price: number}) => acc + total_price, 0).toFixed(2)}
+                </td>
+            </tr>
     </table>
+    
 </div>
+<button class="px-4 py-2 mt-4 text-white bg-blue-500 rounded hover:bg-blue-600">
+    Enviar ticket
+</button>
