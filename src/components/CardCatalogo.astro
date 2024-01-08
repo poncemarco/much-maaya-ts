@@ -1,5 +1,6 @@
 ---
-import { Counter } from '../components/Counter';
+import AddToTicketForm from './AddToTicketForm'
+import type { TicketItemdisplayInfo } from '../ticketStore'
 interface Props{
     name: string
     description: string
@@ -10,6 +11,13 @@ interface Props{
 }
 
 const { name, description, price, image, id , unit} = Astro.props
+
+const item: TicketItemdisplayInfo = {
+    id: id,
+    name: name,
+    price: price,
+    quantity: 1,
+}
 
 ---
 
@@ -51,7 +59,11 @@ const { name, description, price, image, id , unit} = Astro.props
         <p class="mb-4 font-light text-gray-400">
             {description}
         </p>
-        <Counter client:visible transition:persist/>
+        <AddToTicketForm item={item} client:load>
+            <button class="border px-4 py-2 text-xl" type="submit">-</button>
+            <span>0</span>
+            <button class="border px-4 py-2 text-xl">+</button>
+        </AddToTicketForm>
         <a href={`/catalogo/${id}/`} class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
             Ver detalles
         </a>

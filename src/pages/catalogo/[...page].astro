@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro'
 import { fetchItems } from '../../services/items'
 import CardCatalogo from '../../components/CardCatalogo.astro'
+import CardCatalog from '../../components/CardCatalog'
 import { Pagination } from 'accessible-astro-components'
 export async function getStaticPaths({ paginate }: { paginate: any }) {
     const items = await fetchItems()
@@ -23,7 +24,7 @@ const { prev, next } = url
 	</div>
 	<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
 		{items.map(({id, name, price, image_url, description, unit}: {id: string, name: string, price: number, image_url: string, description: string, unit: string}) => (
-			<CardCatalogo 
+			<CardCatalog client:load 
 				id={id}
 				name={name}
 				price={price}
