@@ -264,10 +264,10 @@ export interface Order {
   export interface Item {
     item: Item2
     quantity: number
-    finished: boolean
-    paid: boolean
+    finished: boolean | null
+    paid: boolean | null
     total_price: number
-    id: number
+    id: number | null
   }
   
 
@@ -291,4 +291,16 @@ export interface Order {
     category_title: string
     image_url: string
   }
+
+  export interface IDQuantityList {
+    id: string,
+    quantity: number
+  }
   
+  export interface NewOrder {
+    items: IDQuantityList[]
+    phone: string
+    name: string
+  }
+
+

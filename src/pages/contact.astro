@@ -1,10 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import SendTicket from "../components/SendTicket.astro";
+import SendTicketForm from "../components/SendTicketForm";
 ---
 <Layout title="contact">
     <section class="bg-white dark:bg-gray-900">
-        <SendTicket/>
+        <SendTicketForm client:load/>
     </section>
 </Layout>
-

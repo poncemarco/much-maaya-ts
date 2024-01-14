@@ -30,8 +30,6 @@ export default function CardCatalog({ name, description, price, image, id, unit,
     };
 
 
-    
-
     const handleAdd = () => {
         console.log(item);
         setQuantity(quantity + 1);
