@@ -9,6 +9,7 @@ type Props = {
     image: string | undefined;
     id: string;
     unit: string;
+    slug: string;
 }
 type Props2 = {
     item: TicketItemdisplayInfo;
@@ -16,7 +17,7 @@ type Props2 = {
 
 
 
-export default function CardCatalog({ name, description, price, image, id, unit }: Props) {
+export default function CardCatalog({ name, description, price, image, id, unit, slug }: Props) {
 
     const [quantity, setQuantity] = useState(0);
 
@@ -25,6 +26,7 @@ export default function CardCatalog({ name, description, price, image, id, unit 
         name: name,
         price: price,
         quantity: quantity,
+        slug: slug
     };
 
 

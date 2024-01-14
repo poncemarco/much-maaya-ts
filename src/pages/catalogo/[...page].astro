@@ -1,9 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro'
 import { fetchItems } from '../../services/items'
-import CardCatalogo from '../../components/CardCatalogo.astro'
 import CardCatalog from '../../components/CardCatalog'
 import { Pagination } from 'accessible-astro-components'
+
+
 export async function getStaticPaths({ paginate }: { paginate: any }) {
     const items = await fetchItems()
     return paginate(items, { pageSize: 12})
@@ -20,17 +21,23 @@ const { prev, next } = url
 ---
 
 <Layout title="Muuch Maaya">
-	<div class="grid gap-8 lg:grid-cols-2">
+	<div class="grid gap-8">
+		<div class="flex flex-col justify-center">
+			<h1 class="text-4xl font-bold text-center text-gray-800">Catálogo</h1>
+			<p class="mt-4 text-center text-gray-600">Encuentra los productos que más te gusten</p>
+		</div>
 	</div>
 	<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-		{items.map(({id, name, price, image_url, description, unit}: {id: string, name: string, price: number, image_url: string, description: string, unit: string}) => (
-			<CardCatalog client:load 
+		{items.map(({id, slug, name, price, image_url, description, unit}: {id:string, slug: string, name: string, price: number, image_url: string, description: string, unit: string}) => (
+			<CardCatalog 
+				client:visible
 				id={id}
 				name={name}
 				price={price}
 				image={image_url}
 				description={description}
 				unit={unit}
+				slug={slug}
 			/>
 		))}
 	</div><div class="mt-12 grid place-content-center"> <!-- Cambiado a 5 columnas -->

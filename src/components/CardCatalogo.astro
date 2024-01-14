@@ -8,15 +8,17 @@ interface Props{
     image: string | null
     id: string
     unit: string
+    slug: string
 }
 
-const { name, description, price, image, id , unit} = Astro.props
+const { name, description, price, image, id , unit, slug} = Astro.props
 
 const item: TicketItemdisplayInfo = {
     id: id,
     name: name,
     price: price,
     quantity: 1,
+    slug: slug
 }
 
 ---
