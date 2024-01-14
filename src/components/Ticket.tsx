@@ -1,8 +1,12 @@
 import { useStore } from '@nanostores/react';
-import { ticketItems, removeTicketItem, addTicketItem } from '../ticketStore';
+import { ticketItems, removeTicketItem, addTicketItem, OutterItems } from '../ticketStore';
+import OutterItemForm from './OutterItemForm';
 
 export default function Ticket() {
     const $ticketItems = useStore(ticketItems);
+    const $outterItems = useStore(OutterItems);
+
+    
 
     const total = Object.values($ticketItems).reduce((acc, item) => {
         return acc + item.price * item.quantity;
@@ -13,7 +17,8 @@ export default function Ticket() {
         ticketItems.setKey(id, {
             ...existingEntry,
             quantity: existingEntry.quantity + 1
-         });
+        });
+
     };
 
     const removeItemFromTicket = (id: string) => {
@@ -27,6 +32,7 @@ export default function Ticket() {
 
     return (
         <div className='relative overflow-x-auto shadow-md sm:rounded-lg'>
+            <h1 className='dark:text-white'>Ticket</h1>
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
@@ -93,12 +99,52 @@ export default function Ticket() {
                      <tbody>
                           <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                             <td className='px-6 py-4 text-center' colSpan={5}>
-                                No hay productos en el ticket
+                                No hay productos del catálogo
                             </td>
                           </tr>
                      </tbody>
                )}
             </table>
+            { Object.values($outterItems).length ? (
+                <div key={2}>
+                    <h1 className='dark:text-white'>Productos fuera de catálogo</h1>
+                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                <tr>
+                                    <th scope="col" className="px-6 py-3">
+                                        Producto
+                                    </th>
+                                    <th scope="col" className="px-6 py-3">
+                                        Cantidad
+                                    </th>
+                                    <th scope="col" className="px-6 py-3">
+                                        Descipción
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    {Object.values($outterItems).map((outterItem) => (
+                        
+                                <tr key={outterItem.name} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                    <td className='px-6 py-4 font-medium text-gray-900 dark:text-white'>
+                                        {outterItem.name}
+                                    </td>
+                                    <td className='px-6 py-4'>
+                                        {outterItem.quantityDescription}
+                                    </td>
+                                    <td className='px-6 py-4'>
+                                        {outterItem.description}
+                                    </td>
+                                </tr>
+                    ))
+                    }
+                        </tbody>
+                    </table>
+                </div>
+                ): null}
+            <div className='py-4 bottom-0 w-full'>
+                <OutterItemForm />
+            </div>
         </div>
     )
 }

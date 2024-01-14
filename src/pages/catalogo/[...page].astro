@@ -23,8 +23,8 @@ const { prev, next } = url
 <Layout title="Muuch Maaya">
 	<div class="grid gap-8">
 		<div class="flex flex-col justify-center">
-			<h1 class="text-4xl font-bold text-center text-gray-800">Catálogo</h1>
-			<p class="mt-4 text-center text-gray-600">Encuentra los productos que más te gusten</p>
+			<h1 class="text-4xl font-bold text-center text-gray-800 dark:text-white">Catálogo</h1>
+			<p class="mt-4 text-center text-gray-600 dark:text-gray-100">Encuentra los productos que más te gusten</p>
 		</div>
 	</div>
 	<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -40,7 +40,8 @@ const { prev, next } = url
 				slug={slug}
 			/>
 		))}
-	</div><div class="mt-12 grid place-content-center"> <!-- Cambiado a 5 columnas -->
+	</div>
+	<div class="mt-12 grid place-content-center dark:text-gray-200"> <!-- Cambiado a 5 columnas -->
         <Pagination
           firstPage={prev ? '/catalogo' : null}
           previousPage={prev ? prev : null}

@@ -48,20 +48,20 @@ export default function CardCatalog({ name, description, price, image, id, unit,
 
 
     return (
-        <div className='rounded-lg border shadow-md bg-gray-800 broder-gray-700
-        hover:scale-105 hover:bg-gray-700 hover:border-gray-500 transition flex 
-        flex-col'>
+        <div className='bg-white dark:bg-gray-800 rounded-lg border shadow-md border-gray-700
+        hover:scale-105 hover:bg-gray-100 hover:border-gray-100 transition flex 
+        flex-col max-h-full'>
             <picture className="flex justify-center p-4">
-                <img src={image} alt={name} className='mb-5 rounded-lg' />
+                <img src={image} alt={name} className='mb-2 rounded-lg' />
             </picture>
-            <header className='p-4 flex-grow'>
+            <header className='p-4 flex-grow dark:text-white'>
                 <span className='text-xs font-semibold mr-2 px-2.5 py-0.5 rounded'>
                     {price.toFixed(2)}
                 </span>
                 <span className='text-xs font-semibold mr-2 px-2.5 py-0.5 rounded'>
                     {unit}
                 </span>
-                <h2 className="my-2 text-2xl font-bold tracking-tight text-white">
+                <h2 className="my-2 text-2xl font-bold tracking-tight">
                     {name}
                 </h2>
                 <p className="mb-4 font-light text-gray-400">
@@ -75,7 +75,6 @@ export default function CardCatalog({ name, description, price, image, id, unit,
                     Ver detalles
                 </a>
             </header>
-            
         </div>
     );
 };

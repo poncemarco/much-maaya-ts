@@ -4,11 +4,12 @@ import HeaderButton from '../components/HeaderButton.astro'
 
 
 <header class="py-8 px-4 mx-auto max-w-xl lg:py-16 lg:px-6">
-  <div class="text-center mb-8 lg:mb-16">
-    <h1 class="mb-4 text-5xl tracking-tight front-extrabold text-white">
+  <div class="text-center mb-2 lg:mb-2">
+    <h1 class="mb-4 text-5xl tracking-tight front-extrabold dark:text-white">
         Muuch Maaya
     </h1>
-    <div class="py-4">   
+    <slot name="theme-button"></slot>
+    <div class="py-2">   
       <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
       <div class="relative">
           <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -25,9 +26,9 @@ import HeaderButton from '../components/HeaderButton.astro'
           >
           <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
       </div>
-      <p id="searchReadout" class="z-10"></p>
+      <p id="searchReadout" class="dark:text-white"></p>
         <section>
-            <ul id="searchResults"></ul>
+            <ul id="searchResults" class="dark:text-white"></ul>
         </section>
     </div>
   </div>
@@ -150,13 +151,13 @@ import HeaderButton from '../components/HeaderButton.astro'
   }
 
     function updateDocumentTitle(search: HTMLInputElement) {
-        document.title = search ? `Search result for ${search}` : 'Search';
+        document.title = search ? `Resultados de búsqueda para: ${search}` : 'Search';
     } 
 
     function updateSearchReadout(search : URLSearchParams) {
         searchReadout.textContent = search
-        ? `Search results for ${search}`
-        : 'Search the Blog';
+        ? `Resultados de búsqueda para: ${search}`
+        : 'Busca productos';
 
     }
 

@@ -21,8 +21,16 @@ const { title } = Astro.props
 		<title>{title}</title>
 		<ViewTransitions />
 	</head>
-	<body class="bg-gray-900 min-h-screen pb-32">
-		<Header transition:persist/>
+	<body class="bg-white dark:bg-gray-900 min-h-screen pb-32">
+		<Header transition:persist>
+			<div slot="theme-button">
+				<button
+					id="theme-toggle"
+					class="p-2 rounded-full bg-gray-200 dark:bg-gray-800"
+				>
+				</button>
+			</div>
+		</Header>
 			<main class="max-w-5xl px-4 m-auto">
 				<slot />
 			</main>
@@ -59,3 +67,48 @@ const { title } = Astro.props
 			monospace;
 	}
 </style>
+
+<script>
+	document.addEventListener('astro:page-load', () => {
+		//variables
+		let theme : string | void;
+
+		//components
+		const themeToggle = document.querySelector("#theme-toggle") as HTMLButtonElement;
+
+		// functions 
+		function getCurrenTheme() {
+			let currentTheme = localStorage.getItem("theme") || "light";
+			if (currentTheme === "dark") {
+				document.documentElement.classList.add("dark");
+			}
+			return currentTheme;
+		}
+
+		function changeTheme() {
+			if (theme === "light") {
+				document.documentElement.classList.add("dark");
+				theme = "dark";
+			} else {
+				document.documentElement.classList.remove("dark");
+				theme = "light";
+			}
+			themeToggle.innerHTML = theme === "light" ? "🌙" : "☀️";
+			window.localStorage.setItem("theme", theme);
+		} 
+
+		// set initial theme
+		theme = getCurrenTheme();
+		console.log(theme);
+		themeToggle.innerHTML = theme === "light" ? "🌙" : "🌞";
+
+		
+
+
+		//listeners 
+		themeToggle.addEventListener("click", changeTheme);
+
+	});
+
+	
+</script>
