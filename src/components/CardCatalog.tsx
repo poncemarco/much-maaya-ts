@@ -4,12 +4,11 @@ import { addTicketItem } from '../ticketStore';
 
 type Props = {
     name: string;
-    description: string;
     price: number;
     image: string | undefined;
     id: string;
     unit: string;
-    slug: string;
+    category: string;
 }
 type Props2 = {
     item: TicketItemdisplayInfo;
@@ -17,7 +16,7 @@ type Props2 = {
 
 
 
-export default function CardCatalog({ name, description, price, image, id, unit, slug }: Props) {
+export default function CardCatalog({ name,  price, image, id, unit, category }: Props) {
 
     const [quantity, setQuantity] = useState(0);
 
@@ -26,7 +25,6 @@ export default function CardCatalog({ name, description, price, image, id, unit,
         name: name,
         price: price,
         quantity: quantity,
-        slug: slug
     };
 
 
@@ -64,9 +62,6 @@ export default function CardCatalog({ name, description, price, image, id, unit,
                 <h2 className="my-2 text-2xl font-bold tracking-tight">
                     {name}
                 </h2>
-                <p className="mb-4 font-light text-gray-400">
-                    {description}
-                </p>
                 <button className="border px-4 py-2 text-xl" onClick={handleSubtract}>-</button>
                 <span>{quantity}</span>
                 <button className="border px-4 py-2 text-xl" onClick={handleAdd}>+</button>

@@ -2,7 +2,7 @@ import { type Datum, type Items } from '../types/api';
 
 export const fetchItems = async () => {
     const res = await fetch('http://localhost:8000/api/v1/items/?page_size=100') 
-    const { data} = await res.json() as Items
+    const { results: data } = await res.json() as Items
     return data 
 }
 

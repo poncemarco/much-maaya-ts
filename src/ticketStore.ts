@@ -1,20 +1,15 @@
 import { map } from 'nanostores';
+import { type OutterItem } from "./types/api"
 
 export type TicketItem = {
     id: string,
     name: string,
     price: number,
-    quantity: number,
-    slug: string,
+    quantity: number
 }
 
-export type OutterItem = {
-    name: string,
-    description: string,
-    quantityDescription: string
-}
 
-export type TicketItemdisplayInfo = Pick<TicketItem, 'id' | 'name' | 'price' | 'quantity' | 'slug'>;
+export type TicketItemdisplayInfo = Pick<TicketItem, 'id' | 'name' | 'price' | 'quantity'>;
 
 export type OutterItemDisplayInfo = Pick<OutterItem, 'name' | 'description' | 'quantityDescription'>;
 

@@ -12,7 +12,7 @@ export interface Items {
     start:        number;
     end:          number;
     count:        number;
-    data:         Datum[];
+    results:         Datum[];
     last_page:    number;
     current_page: number;
 }
@@ -20,30 +20,12 @@ export interface Items {
 export interface Datum {
     id:             string;
     name:           string;
-    description:    string;
     price:          number;
-    discount_price: null;
-    brand:          null | string;
-    unit:           Unit;
-    slug:           string;
-    quantity:       number;
-    category_title: CategoryTitle;
-    image_url:      null | string;
+    unit:           string;
+    category:      string;
+    image:      null | string;
 }
 
-export enum CategoryTitle {
-    Desechable = "DESECHABLE",
-    Higienicos = "HIGIENICOS",
-    Jarceria = "JARCERIA",
-    Limpieza = "LIMPIEZA",
-}
-
-export enum Unit {
-    Caja = "CAJA ",
-    Kg = "KG",
-    Paquete = "PAQUETE ",
-    Pza = "PZA",
-}
 
 export interface Links {
     next:     string;
@@ -224,35 +206,18 @@ const typeMap: any = {
         { json: "last_page", js: "last_page", typ: 0 },
         { json: "current_page", js: "current_page", typ: 0 },
     ], false),
-    "Datum": o([
-        { json: "id", js: "id", typ: "" },
-        { json: "name", js: "name", typ: "" },
-        { json: "description", js: "description", typ: "" },
-        { json: "price", js: "price", typ: 3.14 },
-        { json: "discount_price", js: "discount_price", typ: null },
-        { json: "brand", js: "brand", typ: u(null, "") },
-        { json: "unit", js: "unit", typ: r("Unit") },
-        { json: "slug", js: "slug", typ: "" },
-        { json: "quantity", js: "quantity", typ: 0 },
-        { json: "category_title", js: "category_title", typ: r("CategoryTitle") },
-        { json: "image_url", js: "image_url", typ: u(null, "") },
-    ], false),
     "Links": o([
         { json: "next", js: "next", typ: "" },
         { json: "previous", js: "previous", typ: null },
     ], false),
-    "CategoryTitle": [
-        "DESECHABLE",
-        "HIGIENICOS",
-        "JARCERIA",
-        "LIMPIEZA",
-    ],
-    "Unit": [
-        "CAJA ",
-        "KG",
-        "PAQUETE ",
-        "PZA",
-    ],
+    "Datum": o([
+        { json: "id", js: "id", typ: "" },
+        { json: "name", js: "name", typ: "" },
+        { json: "price", js: "price", typ: 0 },
+        { json: "unit", js: "unit", typ: "" },
+        { json: "category", js: "category", typ: "" },
+        { json: "image", js: "image", typ: null },
+    ], false),
 };
 
 export interface Order {
@@ -296,9 +261,16 @@ export interface Order {
     id: string,
     quantity: number
   }
+
+  export interface OutterItem {
+    name: string,
+    quantityDescription: string,
+    description: string
+  }
   
   export interface NewOrder {
     items: IDQuantityList[]
+    outterItems: OutterItem[]
     phone: string
     name: string
   }

@@ -1,31 +1,55 @@
 import { useStore } from '@nanostores/react';
-import { ticketItems } from '../ticketStore';
+import { ticketItems, OutterItems } from '../ticketStore';
 import { useState } from 'react';
 import { sendOrder } from '../services/order';
+import { type NewOrder, type IDQuantityList, type OutterItem } from '../types/api';
 
 export default function SendTicketButton() {
     const [phone, setPhone] = useState('');
     const [name, setName] = useState('');
+    const [ orderSent, setOrderSent ] = useState(false);
 
     const $ticketItems = useStore(ticketItems);
+    const $outterItems = useStore(OutterItems);
 
     const total = Object.values($ticketItems).reduce((acc, item) => {
         return acc + item.price * item.quantity;
     }, 0);
 
-    const sendTicket = () => {
-        const ticket = Object.values($ticketItems).map((ticketItem) => {
-            return {
+    const sendTicket = async () => {
+        let ticket : IDQuantityList[]
+        ticket = Object.values($ticketItems).map((ticketItem) => {
+            const item: IDQuantityList = {
                 id: ticketItem.id,
-                quantity: ticketItem.quantity
-            }
+                quantity: ticketItem.quantity,
+            };
+            return item;
         });
-        const data = {
+        let outterItems : OutterItem[];
+        outterItems = Object.values($outterItems).map((outterItem) => {
+            const item: OutterItem = {
+                name: outterItem.name,
+                quantityDescription: outterItem.quantityDescription,
+                description: outterItem.description,
+            };
+            return item;
+        }
+        );
+        
+        const data : NewOrder = {
             items: ticket,
+            outterItems: outterItems,
             phone: phone,
             name: name,
         };
-        // sendOrder(data);
+
+        try {
+            const response = await sendOrder(data);
+            setOrderSent(true);
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
         console.log(data);
 
     }
@@ -46,7 +70,12 @@ export default function SendTicketButton() {
                 </div>
                 <div className="mb-5">
                 <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tu nombre / Empresa</label>
-                <input type="text" id="company" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="name" required/>
+                <input 
+                type="text" 
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                name="name" 
+                onChange={(e) => setName(e.target.value)}
+                required/>
                 </div>
                 <div className="flex items-start mb-5">
                 <div className="flex items-center h-5">
