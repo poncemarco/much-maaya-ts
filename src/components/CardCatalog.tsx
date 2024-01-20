@@ -53,20 +53,20 @@ export default function CardCatalog({ name,  price, image, id, unit, category }:
                 <img src={image} alt={name} className='mb-2 rounded-lg' />
             </picture>
             <header className='p-4 flex-grow dark:text-white'>
-                <span className='text-xs font-semibold mr-2 px-2.5 py-0.5 rounded'>
+                <span className='text-gray-900 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:text-white'>
                     {price.toFixed(2)}
                 </span>
-                <span className='text-xs font-semibold mr-2 px-2.5 py-0.5 rounded'>
+                <span className='text-gray-900 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:text-white'>
                     {unit}
                 </span>
-                <h2 className="my-2 text-2xl font-bold tracking-tight">
+                <h2 className="text-gray-900 my-2 text-2xl font-bold tracking-tight dark:text-white">
                     {name}
                 </h2>
-                <button className="border px-4 py-2 text-xl" onClick={handleSubtract}>-</button>
+                <button className="text-gray-900 border px-4 py-2 text-xl dark:text-white" onClick={handleSubtract}>-</button>
                 <span>{quantity}</span>
-                <button className="border px-4 py-2 text-xl" onClick={handleAdd}>+</button>
-                    <button type='submit' onClick={saveItem} className='border px-4 py-2 text-xl'>Agregar a ticket</button>
-                <a href={`/catalogo/${id}/`} className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                <button className="text-gray-900 border px-4 py-2 text-xl dark:text-white" onClick={handleAdd}>+</button>
+                    <button type='submit' onClick={saveItem} className='text-gray-900 border px-4 py-2 text-xl dark:text-white'>Agregar a ticket</button>
+                <a href={`/catalogo/${id}/`} className="text-gray-900 py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                     Ver detalles
                 </a>
             </header>

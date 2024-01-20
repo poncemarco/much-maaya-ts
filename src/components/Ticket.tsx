@@ -32,23 +32,23 @@ export default function Ticket() {
 
     return (
         <div className='relative overflow-x-auto shadow-md sm:rounded-lg'>
-            <h1 className='dark:text-white'>Ticket</h1>
+            <h1 className='text-gray-900 dark:text-white'>Ticket</h1>
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col" className="px-6 py-3">
+                        <th scope="col" className="text-gray-900 px-6 py-3">
                             Producto
                         </th>
-                        <th scope="col" className="px-6 py-3">
+                        <th scope="col" className="text-gray-900 px-6 py-3">
                             Cantidad
                         </th>
-                        <th scope="col" className="px-6 py-3">
+                        <th scope="col" className="text-gray-900 px-6 py-3">
                             Precio
                         </th>
-                        <th scope="col" className="px-6 py-3">
+                        <th scope="col" className="text-gray-900 px-6 py-3">
                             
                         </th>
-                        <th scope="col" className="px-6 py-3">
+                        <th scope="col" className="text-gray-900 px-6 py-3">
                             Subtotal
                         </th>
                     </tr>
@@ -107,7 +107,7 @@ export default function Ticket() {
             </table>
             { Object.values($outterItems).length ? (
                 <div key={2}>
-                    <h1 className='dark:text-white'>Productos fuera de catálogo</h1>
+                    <h1 className='text-gray-900 dark:text-white'>Productos fuera de catálogo</h1>
                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>

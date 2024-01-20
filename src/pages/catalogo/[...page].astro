@@ -28,13 +28,13 @@ const { prev, next } = url
 		</div>
 	</div>
 	<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-		{items.map(({id, name, price, image_url, category, unit}: {id:string, name: string, price: number, image_url: string, category: string, unit: string}) => (
+		{items.map(({id, name, price, image, category, unit}: {id:string, name: string, price: number, image: string, category: string, unit: string}) => (
 			<CardCatalog 
 				client:visible
 				id={id}
 				name={name}
 				price={price}
-				image={image_url}
+				image={image}
 				unit={unit}
 				category={category}
 			/>

@@ -8,17 +8,16 @@ interface Props{
     image: string | null
     id: string
     unit: string
-    slug: string
+    category: string
 }
 
-const { name, description, price, image, id , unit, slug} = Astro.props
+const { name, description, price, image, id , unit, category} = Astro.props
 
 const item: TicketItemdisplayInfo = {
     id: id,
     name: name,
     price: price,
-    quantity: 1,
-    slug: slug
+    quantity: 1
 }
 
 ---
@@ -34,7 +33,7 @@ const item: TicketItemdisplayInfo = {
     <header class="p-4 flex-grow">
         <span 
             class:list={[
-                "text-xs font-semibold mr-2 px-2.5 py-0.5 rounded",
+                "text-gray-900 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded",
                 {
                     "bg-green-500": unit === 'CAJA ',
                     "bg-red-500": unit === 'PZA'
@@ -47,7 +46,7 @@ const item: TicketItemdisplayInfo = {
             class:list={[
                 "text-xs font-semibold mr-2 px-2.5 py-0.5 rounded",
                 {
-                    "bg-green-500": unit === 'CAJA ',
+                    "bg-green-500": unit === 'CAJA',
                     "bg-red-500": unit === 'UNIDAD'
                 }
             ]
@@ -55,7 +54,7 @@ const item: TicketItemdisplayInfo = {
         >
             {unit}
         </span>
-        <h2 class="my-2 text-2xl font-bold tracking-tight text-white">
+        <h2 class="text-gray-900 my-2 text-2xl font-bold tracking-tight dark:text-white">
             {name}
         </h2>
         <p class="mb-4 font-light text-gray-400">
