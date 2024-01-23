@@ -1,6 +1,8 @@
 import type { TicketItemdisplayInfo } from '../ticketStore';
 import { useState } from 'react';
 import { addTicketItem } from '../ticketStore';
+import { SITE_URL } from '../consts';
+import Toast from './Toast.tsx';
 
 type Props = {
     name: string;
@@ -9,16 +11,13 @@ type Props = {
     id: string;
     unit: string;
     category: string;
-}
-type Props2 = {
-    item: TicketItemdisplayInfo;
 };
-
-
 
 export default function CardCatalog({ name,  price, image, id, unit, category }: Props) {
 
     const [quantity, setQuantity] = useState(0);
+    const [showToast, setShowToast] = useState(false);
+    const [lastQuantity, setLastQuantity] = useState(0);
 
     const item: TicketItemdisplayInfo = {
         id: id,
@@ -27,49 +26,63 @@ export default function CardCatalog({ name,  price, image, id, unit, category }:
         quantity: quantity,
     };
 
-
     const handleAdd = () => {
-        console.log(item);
         setQuantity(quantity + 1);
     };
 
     const handleSubtract = () => {
+        if (quantity === 0) return;
         setQuantity(quantity - 1);
     };
 
     const saveItem = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        setQuantity(0);
+        setShowToast(true);
         addTicketItem(item);
+        setLastQuantity(quantity);
+        setQuantity(0);
     }
 
 
 
     return (
-        <div className='bg-white dark:bg-gray-800 rounded-lg border shadow-md border-gray-700
-        hover:scale-105 hover:bg-gray-100 hover:border-gray-100 transition flex 
-        flex-col max-h-full'>
-            <picture className="flex justify-center p-4">
-                <img src={image} alt={name} className='mb-2 rounded-lg' />
-            </picture>
-            <header className='p-4 flex-grow dark:text-white'>
-                <span className='text-gray-900 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:text-white'>
-                    {price.toFixed(2)}
+        <div className="relative item-center w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <img className="p-8 rounded-t-lg" src={SITE_URL + "/media/" + image + "/"} alt="product image" />
+            {quantity > 0 && (
+                <span className="absolute top-3 right-3 bg-blue-700 text-white px-2 py-2 rounded-full">
+                    {quantity}
                 </span>
-                <span className='text-gray-900 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:text-white'>
-                    {unit}
-                </span>
-                <h2 className="text-gray-900 my-2 text-2xl font-bold tracking-tight dark:text-white">
-                    {name}
-                </h2>
-                <button className="text-gray-900 border px-4 py-2 text-xl dark:text-white" onClick={handleSubtract}>-</button>
-                <span>{quantity}</span>
-                <button className="text-gray-900 border px-4 py-2 text-xl dark:text-white" onClick={handleAdd}>+</button>
-                    <button type='submit' onClick={saveItem} className='text-gray-900 border px-4 py-2 text-xl dark:text-white'>Agregar a ticket</button>
-                <a href={`/catalogo/${id}/`} className="text-gray-900 py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                    Ver detalles
-                </a>
-            </header>
+            )}
+            <div className="px-5 pb-5">
+                <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{name}</h5>
+                <div className="flex items-center mt-2.5 mb-5">
+                    <div className="flex items-center space-x-1 rtl:space-x-reverse">
+                        <p className='text-gray-900 dark:text-white'>{category}</p>
+                    </div>
+                    <span className="text-gray-900 bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">{unit}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                    <span className="text-3xl font-bold text-gray-900 dark:text-white">${price}</span>
+                    <button 
+                    className='text-white border px-4 py-2 text-xl bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg hover:bg-blue-800 dark:text-white'
+                    onClick={handleSubtract}
+                    >
+                        -
+                    </button>
+                    <button onClick={saveItem} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Agregar a ticket
+                    </button>
+                    <button 
+                    className='text-white border px-4 py-2 text-xl bg-blue-700  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg hover:bg-blue-800'
+                    onClick={handleAdd}
+                    >
+                        +
+                    </button>
+                </div>
+            </div>
+            {showToast && (
+                <Toast name={name} quantity={lastQuantity} />
+            )}
         </div>
-    );
-};
+        );
+    };

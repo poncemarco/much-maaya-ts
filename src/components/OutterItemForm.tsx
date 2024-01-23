@@ -19,7 +19,6 @@ export default function OutterItemForm() {
 
     const saveItem = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        console.log(outterItem);
         addOutterItem(outterItem);
         setShowForm(false);
     };

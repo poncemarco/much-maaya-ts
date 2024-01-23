@@ -5,11 +5,10 @@ async function getItems() {
     return items.map((item) => {
         return {
             title: item.name,
-            description: item.description,
             price: item.price,
-            slug: item.slug,
             unit: item.unit,
             id: item.id,
+            image: item.image,
         };
     });
 }

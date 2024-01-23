@@ -11,12 +11,11 @@ const ProductFilter = () => {
   const loadCategoriesAndItems = async () => {
     const items = await fetchItems();
     const uniqueCategories = Array.from(
-      new Set(items.map((item) => item.category_title))
+      new Set(items.map((item) => item.category))
     );
     setCategories(uniqueCategories);
     setAllItems(items);
     setFilteredItems(items);
-    console.log(filteredItems);
   };
 
 
@@ -28,7 +27,7 @@ const ProductFilter = () => {
 
     // Filtrar los productos por categoría
     const filtered = category
-      ? allItems.filter((item) => item.category_title === category)
+      ? allItems.filter((item) => item.category === category)
       : allItems;
 
     setFilteredItems(filtered);

@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default function AddToTicketForm({ item }: Props) {
-    console.log(item);
+
     function addToTicket(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         addTicketItem(item);

@@ -46,11 +46,9 @@ export default function SendTicketButton() {
         try {
             const response = await sendOrder(data);
             setOrderSent(true);
-            console.log(response);
         } catch (error) {
             console.log(error);
         }
-        console.log(data);
 
     }
 

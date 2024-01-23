@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro'
 import { fetchItems } from '../../services/items'
 import CardCatalog from '../../components/CardCatalog'
 import { Pagination } from 'accessible-astro-components'
+import Toast from '../../components/Toast.tsx'
 
 
 export async function getStaticPaths({ paginate }: { paginate: any }) {

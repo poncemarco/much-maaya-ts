@@ -30,7 +30,7 @@ import HeaderButton from '../components/HeaderButton.astro'
       </div>
       <p id="searchReadout" class="dark:text-white"></p>
         <section>
-            <ul id="searchResults" class="dark:text-white"></ul>
+            <ul id="searchResults" class="max-w-md divide-y divide-gray-200 dark:divide-gray-700 dark:text-white"></ul>
         </section>
     </div>
   </div>
@@ -58,6 +58,7 @@ import HeaderButton from '../components/HeaderButton.astro'
 <script>
   import DOMPurify from 'dompurify';
   import Fuse from 'fuse.js';
+  import { SITE_URL } from '../consts';
   document.addEventListener('astro:page-load', () => {
   //variables 
     let SEARCH_DATA: string[];
@@ -111,11 +112,26 @@ import HeaderButton from '../components/HeaderButton.astro'
 
     function generateSearchList(results:any[]) {
         return results.map((r) => {
-            const { title, slug, unit, id } = r.item;
-            return `<li>
+            const { title, unit, id, image, price } = r.item;
+            const imageURl = SITE_URL + "/media/" + image;
+            return `<li class="pb-3 sm:pb-4">
                         <a href="/catalogo/${id}">
-                            <h3>${title}</h3>
-                            <p>${unit}</p>
+                          <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                            <div class="flex-shrink-0">
+                                <img class="w-8 h-8 rounded-full" src="${imageURl}"" alt="Neil image">
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                  ${title}
+                                </p>
+                                <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                  ${unit}
+                                </p>
+                            </div>
+                            <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                $${price}
+                            </div>
+                          </div>
                         </a>
                     </li> `
         })
