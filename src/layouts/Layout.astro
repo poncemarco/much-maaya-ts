@@ -1,6 +1,8 @@
 ---
 import Header from "../components/Header.astro"
 import Footer from "../components/Footer.astro"
+import MobileMenu from "../components/MobileMenu.astro"
+import TopMenu from "../components/TopMenu.astro"
 import { ViewTransitions } from "astro:transitions"
 interface Props {
 	title: string
@@ -31,11 +33,18 @@ const { title } = Astro.props
 				>
 				</button>
 			</div>
+			<div slot="navbar" id="topMenu">
+				<TopMenu />
+			</div>
 		</Header>
 			<main class="max-w-5xl px-4 m-auto">
 				<slot />
 			</main>
 		<Footer />
+		<div id="mobileMenu">
+			<MobileMenu transition:persist />
+		</div>
+		
 	</body>
 </html>
 <style is:global>
@@ -108,7 +117,29 @@ const { title } = Astro.props
 		//listeners 
 		themeToggle.addEventListener("click", changeTheme);
 
+		const topMenu = document.querySelector("#topMenu") as HTMLElement;
+		const mobileMenu = document.querySelector("#mobileMenu") as HTMLElement;
+
+		function selectNavBar() {
+			if (window.innerWidth < 768) {
+				topMenu.style.display = "none";
+				mobileMenu.style.display = "block";
+			} else {
+				topMenu.style.display = "block";
+				mobileMenu.style.display = "none";
+			}
+		}
+
+		selectNavBar();
+
+		window.addEventListener("resize", () => {
+			console.log(window.innerWidth)
+			selectNavBar();
+		});
+
 	});
+
+	
 
 	
 </script>
