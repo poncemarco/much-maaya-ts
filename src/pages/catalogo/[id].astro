@@ -1,7 +1,7 @@
 ---
 import { fetchItems } from '../../services/items';
 import Layout from "../../layouts/Layout.astro";
-import DetailCard from '../../components/DetailCard.astro';
+import CardCatalog from '../../components/CardCatalog';
 
 export async function getStaticPaths() {
     const items = await fetchItems()
@@ -23,7 +23,7 @@ const title = item?.name || 'Item';
 <Layout title={title}>
   <article>
     <div class="container">
-      <DetailCard 
+      <CardCatalog client:visible
       id={id}
       name={item?.name}
       price={item?.price}

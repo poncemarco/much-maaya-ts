@@ -7,7 +7,7 @@ import Toast from './Toast.tsx';
 type Props = {
     name: string;
     price: number;
-    image: string | undefined;
+    image: string | any;
     id: string;
     unit: string;
     category: string;
@@ -18,12 +18,13 @@ export default function CardCatalog({ name,  price, image, id, unit, category }:
     const [quantity, setQuantity] = useState(0);
     const [showToast, setShowToast] = useState(false);
     const [lastQuantity, setLastQuantity] = useState(0);
-
     const item: TicketItemdisplayInfo = {
         id: id,
         name: name,
         price: price,
         quantity: quantity,
+        imageUrl: image,
+        unit: unit,
     };
 
     const handleAdd = () => {
@@ -62,9 +63,9 @@ export default function CardCatalog({ name,  price, image, id, unit, category }:
                     <span className="text-gray-900 bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">{unit}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                    <span className="text-3xl font-bold text-gray-900 dark:text-white">${price}</span>
+                    <span className="text-2xl font-bold text-gray-900 mr-1 dark:text-white">${price.toFixed(2)}</span>
                     <button 
-                    className='text-white border px-4 py-2 text-xl bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg hover:bg-blue-800 dark:text-white'
+                    className='text-white border px-3 py-2 text-xl bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg hover:bg-blue-800 dark:text-white'
                     onClick={handleSubtract}
                     >
                         -
@@ -73,7 +74,7 @@ export default function CardCatalog({ name,  price, image, id, unit, category }:
                         Agregar a ticket
                     </button>
                     <button 
-                    className='text-white border px-4 py-2 text-xl bg-blue-700  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg hover:bg-blue-800'
+                    className='text-white border px-3 py-2 text-xl bg-blue-700  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg hover:bg-blue-800'
                     onClick={handleAdd}
                     >
                         +

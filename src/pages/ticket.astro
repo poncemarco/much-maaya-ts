@@ -1,15 +1,17 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Layout from "../layouts/Layout.astro"
 import TicketOrder from "../components/Ticket"
+import SectionTitle from "../components/SectionTitle.astro"
 ---
 
 
 <Layout title="ticket">
     <section class="py-8 mx-auto max-w-6xl lg:py-16 lg:px-6">
         <div class="mx-auto text-center mb-8 lg:mb-16">
-            <h2 class="mb-4 text-5xl tracking-tight front-extrabold text-white">
-                Ticket
-            </h2>
+            <SectionTitle 
+            title="Ticket"
+            description={null}
+            />
             <TicketOrder client:load/>
           </div>
     </section>

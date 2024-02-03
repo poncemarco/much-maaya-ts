@@ -53,7 +53,7 @@ import DOMPurify from 'dompurify';
 
   function generateSearchList(results:any[]) {
        return results.map((r) => {
-          const { title, slug, unit, id } = r.item;
+          const { title, unit, id } = r.item;
           return `<li>
                       <a href="/catalogo/${id}">
                           <h3>${title}</h3>

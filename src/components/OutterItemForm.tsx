@@ -26,7 +26,7 @@ export default function OutterItemForm() {
     return (
         <>
             <div>
-                <button onClick={() => setShowForm(!showForm)} className='text-gray-900 bg-gray-200 dark:bg-gray-700 rounded-lg border shadow-md border-gray-700 dark:text-white'>
+                <button onClick={() => setShowForm(!showForm)} className='text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
                     Agregar Producto Fuera del Catálogo
                 </button>
             </div>

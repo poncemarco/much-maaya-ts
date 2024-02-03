@@ -5,11 +5,13 @@ export type TicketItem = {
     id: string,
     name: string,
     price: number,
-    quantity: number
+    quantity: number,
+    imageUrl: string,
+    unit: string,
 }
 
 
-export type TicketItemdisplayInfo = Pick<TicketItem, 'id' | 'name' | 'price' | 'quantity'>;
+export type TicketItemdisplayInfo = Pick<TicketItem, 'id' | 'name' | 'price' | 'quantity'| 'imageUrl' | 'unit'>;
 
 export type OutterItemDisplayInfo = Pick<OutterItem, 'name' | 'description' | 'quantityDescription'>;
 
@@ -18,7 +20,7 @@ export const ticketItems = map<Record<string, TicketItem | any>>({});
 
 export const OutterItems = map<Record<string, OutterItem | any>>({});
 
-export function addTicketItem({ id, name, quantity, price }: TicketItem) {
+export function addTicketItem({ id, name, quantity, price, imageUrl, unit }: TicketItem) {
     const existingEntry = ticketItems.get()[id];
     if (existingEntry) {
         ticketItems.setKey(id, {
@@ -30,7 +32,9 @@ export function addTicketItem({ id, name, quantity, price }: TicketItem) {
             id, 
             name,
             price,
-            quantity
+            quantity,
+            imageUrl,
+            unit,
         });
     }
 }

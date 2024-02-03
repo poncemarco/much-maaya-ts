@@ -9,6 +9,7 @@ async function getItems() {
             unit: item.unit,
             id: item.id,
             image: item.image,
+            category: item.category,
         };
     });
 }
