@@ -1,7 +1,8 @@
 import { type Datum, type Items } from '../types/api';
+import { SITE_URL } from 'consts';
 
 export const fetchItems = async () => {
-    const res = await fetch('http://localhost:8000/api/v1/items/?page_size=100') 
+    const res = await fetch(`${SITE_URL}/api/v1/items/?page_size=100`) 
     const { results: data } = await res.json() as Items
     return data 
 }

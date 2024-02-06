@@ -1,7 +1,6 @@
 import { useStore } from '@nanostores/react';
 import { ticketItems,  OutterItems } from '../ticketStore';
 import OutterItemForm from './OutterItemForm';
-import { SITE_URL } from '../consts';
 import { useState, useEffect } from 'react';
 
 export default function Ticket() {
@@ -65,7 +64,7 @@ export default function Ticket() {
                             {Object.values($ticketItems).map((item) => (
                                 <li className="flex items-center gap-4" key={item.name}>
                                 <img
-                                    src={SITE_URL + "/media/" + item.imageUrl + "/"}
+                                    src={item.imageUrl}
                                     alt=""
                                     className="h-16 w-16 rounded object-cover"
                                 />

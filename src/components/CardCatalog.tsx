@@ -48,7 +48,7 @@ export default function CardCatalog({ name,  price, image, id, unit, category }:
 
     return (
         <div className="relative item-center w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-            <img className="p-8 rounded-t-lg" src={SITE_URL + "/media/" + image + "/"} alt="product image" />
+            <img className="p-8 rounded-t-lg" src={ image } alt="product image" />
             {quantity > 0 && (
                 <span className="absolute top-3 right-3 bg-blue-700 text-white px-2 py-2 rounded-full">
                     {quantity}
