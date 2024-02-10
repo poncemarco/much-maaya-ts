@@ -8,7 +8,7 @@ export const fetchItems = async () => {
 }
 
 export const fetchItem = async ({ id }: { id:string}) => {
-    const res = await fetch(`http://localhost:8000/api/v1/items/${id}/`)
+    const res = await fetch(`${SITE_URL}/api/v1/items/${id}/`)
     const item  = await (res.json()) as Datum
     return item
 }
