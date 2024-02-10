@@ -269,6 +269,7 @@ export interface Order {
     outterItems: OutterItem[]
     phone: string
     name: string
+    email: string
   }
 
 

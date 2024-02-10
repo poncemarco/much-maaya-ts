@@ -27,6 +27,17 @@ export default function Ticket() {
         }
     }, [$ticketItems]);
 
+
+    const handleQuantityChange = (id: string, quantity: number) => { // Update the quantity of the item in the ticketItems store 
+        const existingEntry = ticketItems.get()[id];
+        ticketItems.setKey(id, {
+            ...existingEntry,
+            quantity: quantity
+        });
+    };
+
+    
+
     
 
     const total = Object.values($ticketItems).reduce((acc, item) => {
@@ -82,27 +93,32 @@ export default function Ticket() {
                                 <div className="flex flex-1 items-center justify-end gap-2 dark:text-white">
                                     <div>
                                     <label htmlFor="Line1Qty" className="sr-only"> Quantity </label>
-                                    <button 
-                                        type="button" 
-                                        onClick={() => removeItemFromTicket(item.id)}
-                                        className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                                        >
-                                        -
-                                    </button>
+                                    <div className='hidden sm:block'>
+                                        <button
+                                            type="button" 
+                                            onClick={() => removeItemFromTicket(item.id)}
+                                            className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                                            >
+                                            -
+                                        </button>
+                                    </div>
                                     <input
                                         type="number"
                                         min="1"
                                         value={item.quantity}
                                         id="Line1Qty"
+                                        onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value, 10))}
                                         className="h-8 w-12 rounded border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
                                     />
-                                    <button 
-                                        type="button" 
-                                        onClick={() => addItemToTicket(item.id)}
-                                        className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                                        >
-                                        +
-                                    </button>
+                                        <div className='hidden sm:block'>
+                                            <button 
+                                                type="button" 
+                                                onClick={() => addItemToTicket(item.id)}
+                                                className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                                                >
+                                                +
+                                            </button>
+                                        </div>
                                     </div>
                     
                                     <button className="text-gray-600 transition hover:text-red-600">

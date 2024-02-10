@@ -9,18 +9,21 @@ export const fetchOrder = async () => {
 
 export const sendOrder = async (data : NewOrder) => {
     const url = `${SITE_URL}/api/v1/orders/`;
-    const res = await fetch('http://localhost:8000/test/', {
+    const res = await fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
-    }).then(res => res.json()).catch(error => console.error('Error:', error));
-    console.log(res);
-    if (!res.ok) {
-        throw new Error('Network response was not ok');
+    }).then((res) => {
+        if(!res.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return true;
+    })
+    .catch(error => {
         return false;
-    }
-    return true;
+    });
+    return res;
     
 }
