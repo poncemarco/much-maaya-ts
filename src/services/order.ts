@@ -1,8 +1,8 @@
-import { type Order, type NewOrder } from '../types/api';
+import { type NewOrder } from '../types/api';
 import { SITE_URL } from '../consts';
 
 export const sendOrder = async (data : NewOrder) => {
-    const url = `${SITE_URL}/api/v1/orders/`;
+    const url = 'https://rama-ws.com/api/v1/orders/';
     console.log(url);
     const res = await fetch(url, {
         method: 'POST',
