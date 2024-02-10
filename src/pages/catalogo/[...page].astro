@@ -8,7 +8,7 @@ import SectionTitle from '../../components/SectionTitle.astro'
 
 export async function getStaticPaths({ paginate }: { paginate: any }) {
     const items = await fetchItems()
-    return paginate(items, { pageSize: 12})
+    return paginate(items, { pageSize: 9})
 }
 let items : any
 const { page } = Astro.props
