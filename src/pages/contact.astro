@@ -1,9 +1,16 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import SendTicketForm from "../components/SendTicketForm";
+import SectionTitle from "../components/SectionTitle.astro";
 ---
 <Layout title="contact">
-    <section class="bg-white dark:bg-gray-900">
+    <section class="bg-white mt-2 mb-24 dark:bg-gray-900">
+        <div class="mb-12">
+            <SectionTitle 
+                title="Envía tu ticket" 
+                description={"Coloca tus datos para que podamos recibir tu ticket y contactarte lo más pronto posible."}
+            />
+        </div>
         <SendTicketForm client:load/>
     </section>
 </Layout>

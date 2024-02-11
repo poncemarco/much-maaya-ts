@@ -68,7 +68,7 @@ export default function Ticket() {
 
     return (
         <div className='relative overflow-x-auto shadow-md sm:rounded-lg'>
-           <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+           <div className="mx-auto max-w-screen-xl px-4 py-1 sm:px-6 sm:py-12 lg:px-8">
                 <div className="mx-auto max-w-3xl">
                     <div className="mt-8">
                         <ul className="space-y-4">
@@ -86,6 +86,10 @@ export default function Ticket() {
                                     <div>
                                         <dt className="inline">Unidad:</dt>
                                         <dd className="inline">{item.unit}</dd>
+                                    </div>
+                                    <div>
+                                        <dt className="inline">$</dt>
+                                        <dd className="inline">{item.price.toFixed(2)}</dd>
                                     </div>
                                     </dl>
                                 </div>
@@ -145,15 +149,23 @@ export default function Ticket() {
                                 }
                         
                         </ul>
-                        <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                        <div className="w-full bg-gray-200 my-6 rounded-full h-2.5 dark:bg-gray-700">
                             <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${progress}%` }}></div>
                             <div>
-                                <h6 className='text-gray-800 dark:text-white'>
-                                    {remaining > 0 ? "$" + remaining.toFixed(2) + " para envío gratis" : null }
-                                </h6>
+                            {remaining > 0 ? (
+                                <p className='text-xs my-2'>
+                                    {"$" + remaining.toFixed(2) + " para envío gratis"}
+                                </p>
+                                ) : (
+                                        <div className='flex items-center justify-center text-green-500 my-2'>
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-circle-check-filled" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-1.293 5.953a1 1 0 0 0 -1.32 -.083l-.094 .083l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.403 1.403l.083 .094l2 2l.094 .083a1 1 0 0 0 1.226 0l.094 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z" stroke-width="0" fill="currentColor" /></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-truck-delivery" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M5 17h-2v-4m-1 -8h11v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5" /><path d="M3 9l4 0" /></svg>
+                                        </div>
+                                        
+                                    ) }
                             </div>
                         </div>
-                        <div className="mt-8 flex justify-end border-t border-gray-100 pt-8">
+                        <div className="mt-12 flex justify-end border-t border-gray-100 pt-8">
                             <div className="w-screen max-w-lg space-y-4">
                                 <dl className="space-y-0.5 text-sm text-gray-700">
                                     <div className="flex justify-between text-gray-800 dark:text-white">
@@ -161,7 +173,7 @@ export default function Ticket() {
                                         Envío:
                                     </dt>
                                     <dd>
-                                        {shipment.toFixed(2)}
+                                        {shipment === 0 ? "Gratis" : shipment.toFixed(2)}
                                     </dd>
                                     </div>
                                     <div className="flex justify-between !text-base font-medium text-gray-800 dark:text-white">

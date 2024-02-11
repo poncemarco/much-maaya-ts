@@ -1,24 +1,53 @@
-import { type NewOrder } from '../types/api';
+import { type IDQuantityList, type OutterItem, type NewOrder} from '../types/api';
 import { SITE_URL } from '../consts';
 
-export const sendOrder = async (data : NewOrder) => {
-    const url = 'https://rama-ws.com/api/v1/orders/';
-    console.log(url);
-    const res = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    }).then((res) => {
-        if(!res.ok) {
-            throw new Error('Network response was not ok');
+export const sendOrder = async (order : NewOrder): Promise<boolean> => {
+    const { user, items: $ticketItems, outterItems:$outterItems, couppon } = order;
+    const url = "https://rama-ws.com/api/v1/orders/";
+    let ticket : IDQuantityList[]
+        ticket = Object.values($ticketItems).map((ticketItem) => {
+            const item: IDQuantityList = {
+                id: ticketItem.id,
+                quantity: ticketItem.quantity,
+            };
+            return item;
+        });
+        let outterItems : OutterItem[];
+        outterItems = Object.values($outterItems).map((outterItem) => {
+            const item: OutterItem = {
+                name: outterItem.name,
+                quantityDescription: outterItem.quantityDescription,
+                description: outterItem.description,
+            };
+            return item;
         }
-        return true;
-    })
-    .catch(error => {
-        return false;
-    });
-    return res;
+        );
+
+        const data: NewOrder = {
+            items: ticket,
+            outterItems: outterItems,
+            phone: user.phone,
+            name: user.name,
+            email: user.email,
+            user: user,
+            couppon: couppon,
+        };
     
-}
+        try {
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+    
+            if (!res.ok) {
+                throw new Error('Network response was not ok');
+            }
+    
+            return true; // Si la solicitud se completa correctamente
+        } catch (error) {
+            return false; // Si ocurre algún error
+        }
+    };

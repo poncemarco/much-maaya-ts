@@ -32,6 +32,12 @@ export interface Links {
     previous: null;
 }
 
+export interface User {
+    name : string,
+    email : string,
+    phone : string
+}
+
 // Converts JSON strings to/from your types
 // and asserts the results of JSON.parse at runtime
 export class Convert {
@@ -270,6 +276,8 @@ export interface Order {
     phone: string
     name: string
     email: string
+    user: User
+    couppon: string | null
   }
 
 
