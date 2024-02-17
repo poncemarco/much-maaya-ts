@@ -1,5 +1,5 @@
 import { renderers } from './renderers.mjs';
-import { l as levels, g as getEventPrefix, L as Logger, A as AstroIntegrationLogger, manifest } from './manifest_0VcbvNF8.mjs';
+import { l as levels, g as getEventPrefix, L as Logger, A as AstroIntegrationLogger, manifest } from './manifest_KoJ0XSzS.mjs';
 import 'node:fs';
 import { e as appendForwardSlash, j as joinPaths, t as trimSlashes, s as slash, p as prependForwardSlash, r as removeTrailingForwardSlash, f as collapseDuplicateSlashes } from './chunks/astro/assets-service_YbdMukE0.mjs';
 import { R as ROUTE_DATA_SYMBOL, A as AstroError, n as ResponseSentError, o as MiddlewareNoDataOrNextCalled, p as MiddlewareNotAResponse, G as GetStaticPathsRequired, q as InvalidGetStaticPathsReturn, t as InvalidGetStaticPathsEntry, u as GetStaticPathsExpectedParams, v as GetStaticPathsInvalidRouteParam, P as PageNumberParamNotFound, N as NoMatchingStaticPathFound, w as PrerenderDynamicEndpointPathCollide, x as LocalsNotAnObject, y as ASTRO_VERSION, C as ClientAddressNotAvailable, S as StaticClientAddressNotAvailable, z as renderEndpoint, B as ReservedSlotName, D as renderSlotToString, F as renderJSX, H as chunkToString, J as CantRenderPage, K as renderPage$1, O as REROUTE_DIRECTIVE_HEADER } from './chunks/astro_AQNIkiCm.mjs';
@@ -2161,29 +2161,37 @@ function asyncIterableToBodyProps(iterable) {
 nodePath.posix.join;
 
 const ASTRO_PATH_HEADER = "x-astro-path";
+const ASTRO_PATH_PARAM = "x_astro_path";
 const ASTRO_LOCALS_HEADER = "x-astro-locals";
+const ASTRO_MIDDLEWARE_SECRET_HEADER = "x-astro-middleware-secret";
 
 apply();
-const createExports = (manifest) => {
+const createExports = (manifest, { middlewareSecret }) => {
   const app = new NodeApp(manifest);
   const handler = async (req, res) => {
+    const url = new URL(`https://example.com${req.url}`);
     const clientAddress = req.headers["x-forwarded-for"];
     const localsHeader = req.headers[ASTRO_LOCALS_HEADER];
-    const realPath = req.headers[ASTRO_PATH_HEADER];
+    const middlewareSecretHeader = req.headers[ASTRO_MIDDLEWARE_SECRET_HEADER];
+    const realPath = req.headers[ASTRO_PATH_HEADER] ?? url.searchParams.get(ASTRO_PATH_PARAM);
     if (typeof realPath === "string") {
       req.url = realPath;
     }
-    const locals = typeof localsHeader === "string" ? JSON.parse(localsHeader) : Array.isArray(localsHeader) ? JSON.parse(localsHeader[0]) : {};
+    let locals = {};
+    if (localsHeader) {
+      if (middlewareSecretHeader !== middlewareSecret) {
+        res.statusCode = 403;
+        res.end("Forbidden");
+        return;
+      }
+      locals = typeof localsHeader === "string" ? JSON.parse(localsHeader) : JSON.parse(localsHeader[0]);
+    }
+    delete req.headers[ASTRO_MIDDLEWARE_SECRET_HEADER];
     const webResponse = await app.render(req, { addCookieHeader: true, clientAddress, locals });
     await NodeApp.writeResponse(webResponse, res);
   };
   return { default: handler };
 };
-
-const serverEntrypointModule = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-  __proto__: null,
-  createExports
-}, Symbol.toStringTag, { value: 'Module' }));
 
 const _page0 = () => import('./chunks/generic__klLT8K7.mjs');
 const _page1 = () => import('./chunks/404_5P0sDete.mjs');
@@ -2209,12 +2217,10 @@ const _manifest = Object.assign(manifest, {
     renderers,
     middleware: onRequest
 });
-const _args = undefined;
-const _exports = createExports(_manifest);
+const _args = {
+    "middlewareSecret": "78cc2934-24f0-4232-9952-b0812ff3ba03"
+};
+const _exports = createExports(_manifest, _args);
 const __astrojsSsrVirtualEntry = _exports.default;
-const _start = 'start';
-if (_start in serverEntrypointModule) {
-	serverEntrypointModule[_start](_manifest, _args);
-}
 
 export { __astrojsSsrVirtualEntry as default, pageMap };
