@@ -125,9 +125,12 @@ export default function Ticket() {
                                         </div>
                                     </div>
                     
-                                    <button className="text-gray-600 transition hover:text-red-600">
+                                    <button 
+                                    className="text-gray-600 transition hover:text-red-600"
+                                    onClick={() => ticketItems.setKey(item.id, undefined)}
+                                    >
                                     <span className="sr-only">Remove item</span>
-                    
+                                    
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
@@ -153,7 +156,7 @@ export default function Ticket() {
                             <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${progress}%` }}></div>
                             <div>
                             {remaining > 0 ? (
-                                <p className='text-xs my-2'>
+                                <p className='text-gray-700 text-xs my-2 dark:text-gray-300'>
                                     {"$" + remaining.toFixed(2) + " para envío gratis"}
                                 </p>
                                 ) : (
@@ -226,7 +229,7 @@ export default function Ticket() {
             <div className='py-4 bottom-0 w-full'>
                 <OutterItemForm />
             </div>
-            <div className="flex justify-center">
+            <div className="flex justify-center mb-8">
                 <a
                 href="/contact"
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

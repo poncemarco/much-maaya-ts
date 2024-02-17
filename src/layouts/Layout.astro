@@ -39,7 +39,7 @@ const { title } = Astro.props
 			<main class="max-w-5xl px-4 m-auto">
 				<slot />
 			</main>
-		<Footer />
+		<Footer transition:persist/>
 		<div id="mobileMenu">
 			<MobileMenu transition:persist />
 		</div>

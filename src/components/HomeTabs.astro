@@ -1,73 +1,31 @@
-
-<div class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-    <div id="fullWidthTabContent" class="border-t border-gray-200 dark:border-gray-600">
-        <div class="p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="stats" role="tabpanel" aria-labelledby="stats-tab">
-            <dl class="grid max-w-screen-xl grid-cols-2 gap-8 p-4 mx-auto text-gray-900 sm:grid-cols-4 xl:grid-cols-4 dark:text-white sm:p-8">
-                <div class="flex flex-col items-center justify-center">
-                    <dt class="mb-2 text-3xl font-extrabold">250+</dt>
-                    <dd class="text-gray-500 dark:text-gray-400">Productos</dd>
-                </div>
-                <div class="flex flex-col items-center justify-center">
-                    <dt class="mb-2 text-3xl font-extrabold">50</dt>
-                    <dd class="text-gray-500 dark:text-gray-400">Empresas</dd>
-                </div>
-                <div class="flex flex-col items-center justify-center">
-                    <dt class="mb-2 text-3xl font-extrabold">14</dt>
-                    <dd class="text-gray-500 dark:text-gray-400">Festivales</dd>
-                </div>
-                <div class="flex flex-col items-center justify-center">
-                    <dt class="mb-2 text-3xl font-extrabold">+50</dt>
-                    <dd class="text-gray-500 dark:text-gray-400">Eventos atendidos</dd>
-                </div>
-            </dl>
+<div>
+    <div class="flex items-center justify-center my-8">
+        <h6 class="text-gray-900 text-3xl font-semibold dark:text-white">
+            Pruébanos, tenemos tiempo en esto
+        </h6>
+    </div>
+    <div class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div id="fullWidthTabContent" class="border-t border-gray-200 dark:border-gray-600">
+            <div class="p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="stats" role="tabpanel" aria-labelledby="stats-tab">
+                <dl class="grid max-w-screen-xl grid-cols-2 gap-8 p-4 mx-auto text-gray-900 sm:grid-cols-4 xl:grid-cols-4 dark:text-white sm:p-8">
+                    <div class="flex flex-col items-center justify-center">
+                        <dt class="mb-2 text-3xl font-extrabold">250+</dt>
+                        <dd class="text-gray-500 dark:text-gray-400">Productos</dd>
+                    </div>
+                    <div class="flex flex-col items-center justify-center">
+                        <dt class="mb-2 text-3xl font-extrabold">+50</dt>
+                        <dd class="text-gray-500 dark:text-gray-400">Clientes</dd>
+                    </div>
+                    <div class="flex flex-col items-center justify-center">
+                        <dt class="mb-2 text-3xl font-extrabold">14</dt>
+                        <dd class="text-gray-500 dark:text-gray-400">Festivales</dd>
+                    </div>
+                    <div class="flex flex-col items-center justify-center">
+                        <dt class="mb-2 text-3xl font-extrabold">+50</dt>
+                        <dd class="text-gray-500 dark:text-gray-400">Eventos</dd>
+                    </div>
+                </dl>
+            </div>
         </div>
     </div>
 </div>
-
-
-<script is:inline>
-    
-    document.addEventListener("DOMContentLoaded", function () {
-        // Function to handle tab switching
-        function switchTab(tabId) {
-            // Hide all tab content
-            document.querySelectorAll("[role='tabpanel']").forEach(function (tabContent) {
-                tabContent.classList.add("hidden");
-            });
-
-            // Deactivate all tab buttons
-            document.querySelectorAll("[role='tab']").forEach(function (tabButton) {
-                tabButton.setAttribute("aria-selected", "false");
-                tabButton.classList.remove("bg-gray-100", "dark:bg-gray-600");
-            });
-
-            // Show the selected tab content
-            var selectedTabContent = document.getElementById(tabId);
-            if (selectedTabContent) {
-                selectedTabContent.classList.remove("hidden");
-            }
-
-            // Activate the selected tab button
-            var selectedTabButton = document.querySelector("[data-tabs-target='#" + tabId + "']");
-            if (selectedTabButton) {
-                selectedTabButton.setAttribute("aria-selected", "true");
-                selectedTabButton.classList.add("bg-gray-100", "dark:bg-gray-600");
-            }
-        }
-
-        // Event listener for tab button clicks
-        document.querySelectorAll("[role='tab']").forEach(function (tabButton) {
-            tabButton.addEventListener("click", function () {
-                var tabId = this.getAttribute("data-tabs-target");
-                switchTab(tabId.slice(1)); // Remove the # from the ID
-            });
-        });
-
-        // Initial tab setup based on the selected tab
-        var selectedTab = document.querySelector("[aria-selected='true']");
-        if (selectedTab) {
-            var initialTabId = selectedTab.getAttribute("data-tabs-target");
-            switchTab(initialTabId.slice(1)); // Remove the # from the ID
-        }
-    });
-</script>

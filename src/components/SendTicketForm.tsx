@@ -96,17 +96,22 @@ export default function SendTicketForm() {
 
         // Actualizar el estado del pedido enviado y el envío del pedido
         setOrderSent(response);
+
+        if (response) {
+            // Limpiar los elementos del carrito después de enviar el pedido
+            Object.values($ticketItems).map((ticketItem) => {
+                const existingEntry = ticketItems.get()[ticketItem.id];
+                ticketItems.setKey(ticketItem.id, undefined);
+            });
+
+            Object.values($outterItems).map((outterItem) => {
+                removeOutterItem(outterItem.name);
+            });
+        }
+            // Si la solicitud se completa correctamente, establecer sendingOrder a false
         setSendingOrder(false);
         
-        // Limpiar los elementos del carrito después de enviar el pedido
-        Object.values($ticketItems).map((ticketItem) => {
-            const existingEntry = ticketItems.get()[ticketItem.id];
-            ticketItems.setKey(ticketItem.id, undefined);
-        });
-
-        Object.values($outterItems).map((outterItem) => {
-            removeOutterItem(outterItem.name);
-        });
+        
     };
 
     useEffect(() => {
@@ -199,7 +204,7 @@ export default function SendTicketForm() {
                                 onChange={(e) => setEmail(e.target.value)}
                                 required/>
                         </div>
-                        <div className="mb-5">
+                        <div className="mb-5 mb-8">
                             <label htmlFor="tel" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cupón</label>
                             <input 
                                 type="text" 
@@ -214,7 +219,7 @@ export default function SendTicketForm() {
                         </div>
                         <button 
                             onClick={(e) => sendTicket(e)}
-                            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" 
+                            className="text-white bg-blue-700 mb-12 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" 
                             >
                             Enviar pedido
                         </button>
