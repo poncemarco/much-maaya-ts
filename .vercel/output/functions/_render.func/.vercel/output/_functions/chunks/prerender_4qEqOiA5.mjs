@@ -4,5 +4,6 @@ export const a = noop;
 export const b = noop;
 export const c = noop;
 export const i = noop;
+export const r = noop;
 export const s = noop;
 export const t = noop;
