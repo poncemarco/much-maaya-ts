@@ -55,7 +55,7 @@ import DOMPurify from 'dompurify';
        return results.map((r) => {
           const { title, unit, id } = r.item;
           return `<li>
-                      <a href="/catalogo/${id}">
+                      <a href="/catalogo/${id}" title=${title}>
                           <h3>${title}</h3>
                           <p>${unit}</p>
                       </a>
