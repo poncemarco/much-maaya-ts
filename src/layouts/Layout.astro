@@ -17,7 +17,6 @@ const { title } = Astro.props
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/ico+xml" href="/favicon.ico" />
 		<SEOMetadata
@@ -37,6 +36,14 @@ const { title } = Astro.props
 		<title>{title}</title>
 		<ViewTransitions />
 	</head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-EDDFQB62K0" is:inline></script>
+	<script is:inline>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-EDDFQB62K0');
+	</script>
 	<body class="bg-white dark:bg-gray-900 min-h-screen pb-32">
 		<Header transition:persist>
 			<div slot="theme-button" class="mb-6">
@@ -147,6 +154,7 @@ const { title } = Astro.props
 		window.addEventListener("resize", () => {
 			selectNavBar();
 		});
+		
 
 	});
 
