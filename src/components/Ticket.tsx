@@ -95,13 +95,13 @@ export default function Ticket() {
                                 </div>
                     
                                 <div className="flex flex-1 items-center justify-end gap-2 dark:text-white">
-                                    <div>
+                                    <div className='flex items-center justify-end'>
                                     <label htmlFor="Line1Qty" className="sr-only"> Quantity </label>
                                     <div className='hidden sm:block'>
                                         <button
                                             type="button" 
                                             onClick={() => removeItemFromTicket(item.id)}
-                                            className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                                            className="py-1 px-4 me-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                                             >
                                             -
                                         </button>
@@ -112,13 +112,13 @@ export default function Ticket() {
                                         value={item.quantity}
                                         id="Line1Qty"
                                         onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value, 10))}
-                                        className="h-8 w-12 rounded border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
+                                        className="h-8 w-8 rounded border-gray-200 bg-gray-50 p-0 mr-2 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
                                     />
                                         <div className='hidden sm:block'>
                                             <button 
                                                 type="button" 
                                                 onClick={() => addItemToTicket(item.id)}
-                                                className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                                                className="py-1 px-4 me-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                                                 >
                                                 +
                                             </button>
@@ -156,7 +156,7 @@ export default function Ticket() {
                             <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${progress}%` }}></div>
                             <div>
                             {remaining > 0 ? (
-                                <p className='text-gray-700 text-xs my-2 dark:text-gray-300'>
+                                <p className='text-gray-700 text-xs my-2 dark:text-gray-100'>
                                     {"$" + remaining.toFixed(2) + " para envío gratis"}
                                 </p>
                                 ) : (
