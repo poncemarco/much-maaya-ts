@@ -2,7 +2,7 @@ import { useStore } from '@nanostores/react';
 import { ticketItems,  OutterItems } from '../ticketStore';
 import OutterItemForm from './OutterItemForm';
 import { useState, useEffect } from 'react';
-import { SITE_URL } from '../consts';
+import { SITE_MEDIA } from '../consts';
 
 export default function Ticket() {
     const $ticketAmountFreeShipment = 900;
@@ -76,7 +76,7 @@ export default function Ticket() {
                             {Object.values($ticketItems).map((item) => (
                                 <li className="flex items-center gap-4" key={item.name}>
                                 <img
-                                    src={SITE_URL + item.thumbnail}
+                                    src={SITE_MEDIA + item.thumbnail}
                                     alt=""
                                     className="h-16 w-16 rounded object-cover"
                                 />

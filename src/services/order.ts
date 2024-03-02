@@ -3,7 +3,7 @@ import { SITE_URL } from '../consts';
 
 export const sendOrder = async (order : NewOrder): Promise<boolean> => {
     const { user, items: $ticketItems, outterItems:$outterItems, couppon } = order;
-    const url = 'http://localhost:8000/api/v1/orders/';
+    const url = 'https://rama-ws.com/api/v1/orders/';
     let ticket : IDQuantityList[]
         ticket = Object.values($ticketItems).map((ticketItem) => {
             const item: IDQuantityList = {

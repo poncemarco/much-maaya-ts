@@ -1,7 +1,7 @@
 import type { TicketItemdisplayInfo } from '../ticketStore';
 import { useState } from 'react';
 import { addTicketItem } from '../ticketStore';
-import { SITE_URL } from '../consts';
+import { SITE_MEDIA } from '../consts';
 import Toast from './Toast.tsx';
 import IntCounter from './IntCounter.tsx';
 import FloatCounter from './FloatCounter.tsx';
@@ -59,7 +59,7 @@ export default function CardCatalog({ name,  price, image, id, unit, category }:
 
       return (
         <div className="relative item-center w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-          <img className="p-8 rounded-t-lg" src={ SITE_URL + primary + "/" } alt="product image" />
+          <img className="p-8 rounded-t-lg" src={ SITE_MEDIA + primary  } alt="product image" />
           {item.unit === 'KG' && quantity > 0 ? (
             <span className="absolute top-3 right-3 bg-blue-700 text-white px-2 py-2 rounded-full">
               {quantity} KGS
