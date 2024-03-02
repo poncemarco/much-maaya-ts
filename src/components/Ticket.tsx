@@ -2,6 +2,7 @@ import { useStore } from '@nanostores/react';
 import { ticketItems,  OutterItems } from '../ticketStore';
 import OutterItemForm from './OutterItemForm';
 import { useState, useEffect } from 'react';
+import { SITE_URL } from '../consts';
 
 export default function Ticket() {
     const $ticketAmountFreeShipment = 900;
@@ -29,16 +30,16 @@ export default function Ticket() {
 
 
     const handleQuantityChange = (id: string, quantity: number) => { // Update the quantity of the item in the ticketItems store 
+        if (quantity <= 0) {
+            ticketItems.setKey(id, undefined);
+            return;
+        }
         const existingEntry = ticketItems.get()[id];
         ticketItems.setKey(id, {
             ...existingEntry,
             quantity: quantity
         });
     };
-
-    
-
-    
 
     const total = Object.values($ticketItems).reduce((acc, item) => {
         return acc + item.price * item.quantity;
@@ -54,7 +55,7 @@ export default function Ticket() {
     };
 
     const removeItemFromTicket = (id: string) => {
-        if (ticketItems.get()[id].quantity === 1) {
+        if ($ticketItems[id].quantity - 1 <= 0) {
             ticketItems.setKey(id, undefined);
             return;
         }
@@ -75,7 +76,7 @@ export default function Ticket() {
                             {Object.values($ticketItems).map((item) => (
                                 <li className="flex items-center gap-4" key={item.name}>
                                 <img
-                                    src={item.imageUrl}
+                                    src={SITE_URL + item.thumbnail}
                                     alt=""
                                     className="h-16 w-16 rounded object-cover"
                                 />
@@ -109,9 +110,9 @@ export default function Ticket() {
                                     <input
                                         type="number"
                                         min="1"
-                                        value={item.quantity}
+                                        value={item.unit === "KG" ? item.quantity.toFixed(2) : item.quantity }
                                         id="Line1Qty"
-                                        onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value, 10))}
+                                        onChange={(e) => handleQuantityChange(item.id, parseFloat(e.target.value))}
                                         className="h-8 w-8 rounded border-gray-200 bg-gray-50 p-0 mr-2 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
                                     />
                                         <div className='hidden sm:block'>

@@ -4,6 +4,7 @@ import { fetchItems } from '../../services/items'
 import CardCatalog from '../../components/CardCatalog'
 import Pagination  from '../../components/Pagination.astro'
 import SectionTitle from '../../components/SectionTitle.astro'
+import { type ImagePath } from '../../types/api'
 
 
 export async function getStaticPaths({ paginate }: { paginate: any }) {
@@ -27,7 +28,7 @@ const { prev, next } = url
 	description=`${total} productos disponibles`
 	/>
 	<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-		{items.map(({id, name, price, image, category, unit}: {id:string, name: string, price: number, image: string, category: string, unit: string}) => (
+		{items.map(({id, name, price, image, category, unit}: {id:string, name: string, price: number, image: ImagePath, category: string, unit: string}) => (
 			<CardCatalog 
 				client:visible
 				id={id}
@@ -46,7 +47,7 @@ const { prev, next } = url
           nextPage={next ? next : null}
           lastPage={next ? `/catalogo/${Math.round(total / size)}` : null}
           currentPage={currentPage}
-          totalPages={Math.round(total / size) + 1}
+          totalPages={Math.round(total / size)}
         />
       </div>
 </Layout>

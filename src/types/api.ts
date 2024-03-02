@@ -18,13 +18,23 @@ export interface Items {
 }
 
 export interface Datum {
-    id:             string;
-    name:           string;
-    price:          number;
-    unit:           string;
-    category:      string;
-    image:      null | string;
-}
+    id: string
+    name: string
+    unit: string
+    category: string
+    price: number
+    image: Image
+  }
+  
+  export interface Image {
+    image_path: ImagePath
+  }
+  
+  export interface ImagePath {
+    primary: string
+    thumbnail: string
+  }
+  
 
 
 export interface Links {
@@ -222,42 +232,9 @@ const typeMap: any = {
     ], false),
 };
 
-export interface Order {
-    items: Item[]
-    total_price: number
-    total_items: number
-  }
-  
-  export interface Item {
-    item: Item2
-    quantity: number
-    finished: boolean | null
-    paid: boolean | null
-    total_price: number
-    id: number | null
-  }
-  
 
-  export interface Order {
-    items: Item[]
-    total_price: number
-    total_items: number
-  }
+
   
-  
-  export interface Item2 {
-    id: string
-    name: string
-    description: string
-    price: number
-    discount_price: any
-    brand?: string
-    unit: string
-    slug: string
-    quantity: number
-    category_title: string
-    image_url: string
-  }
 
   export interface IDQuantityList {
     id: string,
