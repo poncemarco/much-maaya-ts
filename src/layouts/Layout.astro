@@ -71,6 +71,9 @@ const { title } = Astro.props
 					id="theme-toggle"
 				>
 				</button>
+				<div id="tooltip-light" role="tooltip" class="absolute z-10 text-gray-900 inline-block px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-900 dark:text-white">
+					Cambia de tema
+				</div>
 			</div>
 			<div slot="navbar" id="topMenu">
 				<TopMenu />
@@ -124,6 +127,7 @@ const { title } = Astro.props
 
 		//components
 		const themeToggle = document.querySelector("#theme-toggle") as HTMLButtonElement;
+		const tooltip = document.querySelector("#tooltip-light") as HTMLElement;
 
 		// functions 
 		function getCurrenTheme() {
@@ -143,18 +147,29 @@ const { title } = Astro.props
 				theme = "light";
 			}
 			themeToggle.innerHTML = theme === "light" ? "🌙" : "☀️";
+			tooltip.innerHTML = theme === "light" ? "Cambia  a modo nocturno🌙" : "Cambia  a modo día ☀️";
 			window.localStorage.setItem("theme", theme);
 		} 
 
 		// set initial theme
 		theme = getCurrenTheme();
 		themeToggle.innerHTML = theme === "light" ? "🌙" : "🌞";
+		tooltip.innerHTML = theme === "light" ? "Cambia  a modo nocturno 🌙" : "Cambia  a modo día 🌞";
 
 		
 
 
 		//listeners 
 		themeToggle.addEventListener("click", changeTheme);
+		themeToggle.addEventListener("mouseover", () => {
+			tooltip.classList.add("opacity-100");
+			tooltip.classList.remove("opacity-0");
+		});
+		themeToggle.addEventListener("mouseout", () => {
+			tooltip.classList.remove("opacity-100");
+			tooltip.classList.add("opacity-0");
+		});
+
 
 		const topMenu = document.querySelector("#topMenu") as HTMLElement;
 		const mobileMenu = document.querySelector("#mobileMenu") as HTMLElement;
