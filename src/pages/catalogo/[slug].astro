@@ -7,13 +7,12 @@ export async function getStaticPaths() {
     const items = await fetchItems()
     return items.map((item) => {
         return {
-            params: { id: item.id },
+            params: { slug: item.slug },
             props: { item }
         };
     });
 }
 
-const { id } = Astro.params;
 const { item } = Astro.props;
 
 const title = item?.name || 'Item';
@@ -24,7 +23,7 @@ const title = item?.name || 'Item';
   <article>
     <div class="flex justify-center items-center mb-16">
       <CardCatalog client:visible
-        id={id}
+        id={item?.id}
         name={item?.name}
         price={item?.price}
         unit={item?.unit}

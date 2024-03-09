@@ -24,6 +24,7 @@ export interface Datum {
     category: string
     price: number
     image: Image
+    slug: string
   }
   
   export interface Image {

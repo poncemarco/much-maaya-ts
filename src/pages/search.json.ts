@@ -10,6 +10,7 @@ async function getItems() {
             id: item.id,
             image: item.image,
             category: item.category,
+            slug: item.slug
         };
     });
 }
