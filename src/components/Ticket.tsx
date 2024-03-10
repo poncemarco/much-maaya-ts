@@ -69,7 +69,7 @@ export default function Ticket() {
 
     return (
         <div className='relative overflow-x-auto shadow-md sm:rounded-lg'>
-           <div className="mx-auto max-w-screen-xl px-4 py-1 sm:px-6 sm:py-12 lg:px-8">
+           <div className="mx-auto max-w-screen-2xl px-4 py-1 sm:px-6 sm:py-12 lg:px-2">
                 <div className="mx-auto max-w-3xl">
                     <div className="mt-8">
                         <ul className="space-y-4">
