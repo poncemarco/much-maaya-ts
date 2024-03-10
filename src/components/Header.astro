@@ -22,7 +22,7 @@
             required
           >
       </div>
-      <p id="searchReadout" class="dark:text-white"></p>
+      <p id="searchReadout" class="dark:text-white my-2"></p>
         <section>
             <ul id="searchResults" class="max-w-md divide-y divide-gray-200 dark:divide-gray-700 dark:text-white"></ul>
         </section>
@@ -80,6 +80,14 @@
     const search = document.querySelector('#search') as HTMLInputElement;
     const searchReadout = document.querySelector('#searchReadout') as HTMLInputElement;
     const resultsList = document.querySelector('#searchResults') as HTMLElement; 
+
+
+    // init 
+    search.placeholder = localStorage.getItem('search') ?? 'Busca por producto, categoria o marca';
+    if (search.placeholder === '') {
+        search.placeholder = 'Busca por producto, categoria o marca';
+    }
+    searchReadout.textContent = localStorage.getItem('search') ? `Resultados de búsqueda para: ${localStorage.getItem('search')}` : '';
     //functions
 
     function updateSearchPageURL(search: string) {
@@ -157,6 +165,17 @@
         : 'Busca productos';
 
     }
+    
+    function setLocalSearchData(search: string) {
+        const actualLocalSearch = localStorage.getItem('search');
+        if (actualLocalSearch !== search) {
+            localStorage.setItem('search', search);
+            return true;
+        }
+        return false;
+    }
+
+
 
     //listeners
 
@@ -169,12 +188,28 @@
         search.value = urlParams ?? '';
     });
 
+    search.addEventListener("focus", () => {
+        const actualLocalSearch = localStorage.getItem('search');
+        if (actualLocalSearch) {
+            search.value = actualLocalSearch;
+            const searchTerm = DOMPurify.sanitize(search.value);;
+            updateDocumentTitle(searchTerm);
+            updateSearchReadout(searchTerm);
+            fetchSearchResults(searchTerm);
+            updateSearchPageURL(searchTerm);
+        }
+    });
+
     search.addEventListener("input", () => {
-        const searchTerm = DOMPurify.sanitize(search.value);
+        const searchInput = DOMPurify.sanitize(search.value);
+        const update = setLocalSearchData(searchInput);
+        if (!update) return;
+        const searchTerm = searchInput;
         updateDocumentTitle(searchTerm);
         updateSearchReadout(searchTerm);
         fetchSearchResults(searchTerm);
         updateSearchPageURL(searchTerm);
+        
     });
   });
 </script>
