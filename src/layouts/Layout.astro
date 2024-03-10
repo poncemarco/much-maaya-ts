@@ -48,7 +48,7 @@ const { title } = Astro.props
 		gtag('js', new Date());
 		gtag('config', 'G-EDDFQB62K0');
 	</script>
-	<body class="bg-white dark:bg-gray-900 min-h-screen pb-32">
+	<body class="bg-white dark:bg-gray-900 min-h-max pb-32">
 		<div itemscope itemtype="http://schema.org/Organization">
 			<meta itemprop="legalName" content="Muuch Maaya Najo">
 			<meta itemprop="alternateName" content="Casa Maya">
@@ -79,7 +79,7 @@ const { title } = Astro.props
 				<TopMenu />
 			</div>
 		</Header>
-			<main class="max-w-5xl px-4 m-auto">
+			<main class="max-w-5xl px-4 m-auto xl:max-w-7xl">
 				<slot />
 			</main>
 		<Footer transition:persist/>
