@@ -90,11 +90,11 @@
 
     function generateSearchList(results:any[]) {
         return results.map((r) => {
-            const { title, unit, id, image, price } = r.item;
+            const { title, unit, slug, image, price } = r.item;
             const { image_path } = image;
             const { thumbnail } = image_path;
             return `<li class="pb-3 sm:pb-4">
-                        <a href="/catalogo/${id}">
+                        <a href="/catalogo/${slug}">
                           <div class="flex items-center space-x-4 rtl:space-x-reverse">
                             <div class="flex-shrink-0">
                                 <img class="w-8 h-8 rounded-full" src="${SITE_MEDIA + thumbnail}" alt="Neil image">
