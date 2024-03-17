@@ -24,9 +24,15 @@ const { prev, next } = url
 
 <Layout title="Muuch Maaya">
 	<SectionTitle 
-	title="Catálogo" 
-	description=`${total} productos disponibles`
+		title="Catálogo" 
+		description=`${total} productos disponibles`
 	/>
+	<div class="flex items-center justify-center">
+		<a href="/categorias" 
+			style="max-width: 200px;"
+			class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mb-4">Ver por categoría</a>
+	</div>
+	
 	<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
 		{items.map(({id, name, price, image, category, unit}: {id:string, name: string, price: number, image: ImagePath, category: string, unit: string}) => (
 			<CardCatalog 

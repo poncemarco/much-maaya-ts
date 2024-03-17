@@ -1,0 +1,65 @@
+---
+import { fetchCategories, fetchItems } from "../../../services/items";
+import Layout from "../../../layouts/Layout.astro";
+import SectionTitle from "../../../components/SectionTitle.astro";
+import Pagination from "../../../components/Pagination.astro";
+import CardCatalog from "../../../components/CardCatalog";
+import { type ImagePath, type Items } from '../../../types/api';
+
+
+export async function getStaticPaths({ paginate }: { paginate: any }) {
+  const categoriesJson = await fetchCategories();
+  const categories = categoriesJson.map((category) => category.name.toLowerCase());
+  const items = await fetchItems();
+  
+  return categories.flatMap((tag) => {
+    // const filteredPosts = await fetchItems();
+    const filteredPosts = items.filter((item) => item.category.toLowerCase() === tag);
+    return paginate(filteredPosts, {
+      params: {tag},
+      pageSize: 10
+    });
+  });
+}
+let items : any;
+const { page } = Astro.props;
+const params = Astro.params;
+
+
+const { data, url, currentPage, total, size } = page;
+if (!data) {
+    throw new Error("No data");
+}
+items = data
+const { prev, next } = url;
+---
+
+<Layout title="Muuch Maaya">
+	<SectionTitle 
+	title={`Categoría: ${params.tag}`}
+	description=`${total} productos disponibles`
+	/>
+	<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+		{items.map(({id, name, price, image, category, unit}: {id:string, name: string, price: number, image: ImagePath, category: string, unit: string}) => (
+			<CardCatalog 
+				client:visible
+				id={id}
+				name={name}
+				price={price}
+				image={image}
+				unit={unit}
+				category={category}
+			/>
+		))}
+	</div>
+	<div class="mt-12 grid place-content-center dark:text-gray-200"> <!-- Cambiado a 5 columnas -->
+        <Pagination
+          firstPage={prev ? '/catorias/listas' : null}
+          previousPage={prev ? prev : null}
+          nextPage={next ? next : null}
+          lastPage={next ? `/catalogo/${Math.round(total / size)}` : null}
+          currentPage={currentPage}
+          totalPages={Math.round(total / size)}
+        />
+      </div>
+</Layout>

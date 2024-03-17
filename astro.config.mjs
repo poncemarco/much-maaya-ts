@@ -10,5 +10,8 @@ export default defineConfig({
   site: 'https://muuch-maaya.com',
   integrations: [tailwind(), react(), sitemap()],
   output: 'hybrid',
-  adapter: vercel()
+  adapter: vercel(),
+  redirects: {
+    '/old-page': '/new-page'
+  }
 });
