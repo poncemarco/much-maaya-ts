@@ -1,0 +1,43 @@
+---
+import { fetchCategories } from "../../services/items"
+import Layout from "../../layouts/Layout.astro"
+import CardCategory from "../../components/CardCategory.astro"
+import SectionTitle from "../../components/SectionTitle.astro"
+import Pagination from "../../components/Pagination.astro"
+import type { Categories } from "../../types/categories"
+
+export async function getStaticPaths({ paginate }: { paginate: any}) {
+    const categories = await fetchCategories()
+    return paginate(categories, { pageSize: 6 })
+}
+const { page } = Astro.props
+const { data  , url, currentPage, total, size } = page
+let categories : any
+categories = data
+const { prev, next } = url
+---
+
+<Layout title="categorias">
+    <SectionTitle 
+	title="Categorias" 
+	description=`${total} categorías diferentes`
+	/>
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {categories.map(({id, name, numberOfItems}:  Categories) => (
+            <CardCategory 
+                id={id}
+                name={name}
+                numberOfItems={numberOfItems}
+            />
+        ))}
+
+	</div>
+    <Pagination 
+        firstPage={prev ? '/categorias' : null}
+        previousPage={prev ? prev : null}
+        nextPage={next ? next : null}
+        lastPage={next ? `/categorias/${Math.round(total / size)}` : null}
+        currentPage={currentPage}
+        totalPages={Math.round(total / size) + 1}
+    />
+</Layout>
