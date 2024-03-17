@@ -23,11 +23,11 @@ const { prev, next } = url
 	description=`${total} categorías diferentes`
 	/>
     <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {categories.map(({id, name, numberOfItems}:  Categories) => (
+        {categories.map(({id, name, number_of_items}:  Categories) => (
             <CardCategory 
                 id={id}
                 name={name}
-                numberOfItems={numberOfItems}
+                numberOfItems={number_of_items}
             />
         ))}
 

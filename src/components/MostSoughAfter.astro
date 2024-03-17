@@ -1,0 +1,70 @@
+---
+import {  fetchCategories } from '../services/items'
+import type { Categories } from "../types/categories"
+
+const categoriesAll = await fetchCategories()
+const orderCategories = categoriesAll.sort((a, b) => b.number_of_items - a.number_of_items)
+const categories = orderCategories.slice(0, 6)
+
+---
+
+
+
+
+<div class="flex items-center justify-center my-12">
+    <div class="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <div class="flex items-center justify-between mb-4">
+            <h5 class="text-4xl font-bold leading-none text-gray-900 dark:text-white lg:text-4xl">
+                Categorías 
+                <br/>
+                más buscadas
+            </h5>
+            <a href="/categorias" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
+                Ver todas
+            </a>
+       </div>
+       <div class="flow-root">
+            <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                {categories.map(({id, name, number_of_items}: Categories) => (
+                    <a href={`/categorias/${name.toLocaleLowerCase()}/1`}>
+                        <li class="py-3 sm:py-4">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <svg id='Grocery_Shelf_24' width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><rect width='24' height='24' stroke='none' fill='#000000' opacity='0'/>
+                                        <g transform="matrix(0.83 0 0 0.83 12 12)" >
+                                        <g style="" >
+                                        <g transform="matrix(1 0 0 1 0 -0.5)" >
+                                        <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" translate(-12, -11.5)" d="M 21 17 L 21 9 L 15 9 L 15 13 L 14 13 L 14 17 L 12 17 L 12 9.808 L 10 4.808 L 10 3 C 10 2.447 9.553 2 9 2 L 6 2 C 5.447 2 5 2.447 5 3 L 5 4.808 L 3 9.808 L 3 17 L 2 17 L 2 19 L 4 19 L 4 21 L 6 21 L 6 19 L 18 19 L 18 21 L 20 21 L 20 19 L 22 19 L 22 17 L 21 17 z M 5 17 L 5 10.192 L 6.677 6 L 8.323 6 L 10 10.192 L 10 17 L 5 17 z M 17 11 L 19 11 L 19 13 L 17 13 L 17 11 z M 16 15 L 19 15 L 19 17 L 16 17 L 16 15 z" stroke-linecap="round" />
+                                        </g>
+                                        <g transform="matrix(1 0 0 1 -4.5 -0.5)" >
+                                        <polygon style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 0.3;" points="1.5,-6.5 -1.5,-6.5 -3.5,-1.5 -3.5,6.5 3.5,6.5 3.5,-1.5 " />
+                                        </g>
+                                        <g transform="matrix(1 0 0 1 6 0)" >
+                                        <rect style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 0.3;" x="-1" y="-1" rx="0" ry="0" width="2" height="2" />
+                                        </g>
+                                        <g transform="matrix(1 0 0 1 5.5 4)" >
+                                        <rect style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 0.3;" x="-1.5" y="-1" rx="0" ry="0" width="3" height="2" />
+                                        </g>
+                                        </g>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <div class="flex-1 min-w-0 ms-4">
+                                    <p class="text-md font-medium text-gray-900 truncate dark:text-white">
+                                        {name}
+                                    </p>
+                                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                        Cantidad de artículos:
+                                    </p>
+                                </div>
+                                <div class="inline-flex items-center text-base font-bold text-gray-900 dark:text-white">
+                                    {number_of_items}
+                                </div>
+                            </div>
+                        </li>
+                    </a>
+                ))}
+            </ul>
+       </div>
+    </div>
+</div>
