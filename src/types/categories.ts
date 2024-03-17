@@ -10,7 +10,7 @@
 export interface Categories {
     id:            number;
     name:          string;
-    numberOfItems: number;
+    number_of_items: number;
 }
 
 // Converts JSON strings to/from your types
