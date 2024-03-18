@@ -40,7 +40,9 @@
   document.addEventListener('astro:page-load', () => {
   //variables 
     let SEARCH_DATA: string[];
+    let SEARCH_CATEGORY_DATA: string[];
     let FUSE_INSTANCE: Fuse<string>; 
+    let FUSE_CATEGORY_INSTANCE: Fuse<string>; 
     let FUSE_OPTIONS = {
         includeScore: true,
         shouldSort: true, 
@@ -56,6 +58,16 @@
             {
                 name: 'unit',
                 weight: 0.3,
+            }],
+        threshold: 0.5,
+    };
+    let FUSE_CATEGORY_OPTIONS = {
+        includeScore: true,
+        shouldSort: true, 
+        keys: [ 
+            {
+                name: 'name',
+                weight: 1,
             }],
         threshold: 0.5,
     };
@@ -96,9 +108,9 @@
         window.history.replaceState(null, "", url);
     }
 
-    function generateSearchList(results:any[]) {
-        return results.map((r) => {
-            const { title, unit, slug, image, price } = r.item;
+    function generateSearchList(results: { items: any[]; categories: any[]; }) {
+        const searchItems = results.items.map((r) => {
+            const { name, unit, slug, image, price } = r.item;
             const { image_path } = image;
             const { thumbnail } = image_path;
             return `<li class="pb-3 sm:pb-4">
@@ -109,7 +121,7 @@
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                  ${title}
+                                  ${name}
                                 </p>
                                 <p class="text-sm text-gray-500 truncate dark:text-gray-400">
                                   ${unit}
@@ -123,6 +135,30 @@
                     </li> `
         })
         .join('');
+
+        const categoryList = results.categories.map((category) => {
+            const { name, number_of_items } = category.item;
+            // Aquí puedes definir cómo deseas representar cada categoría
+            return `<li class="pb-3 sm:pb-4">
+                        <a href="/categorias/${name.toLowerCase()}/1">
+                          <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                            <div class="flex-1 min-w-0">
+                                <p class="text-md font-medium text-gray-900 truncate dark:text-white">
+                                  ${name}
+                                </p>
+                               
+                            </div>
+                            <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                ${number_of_items} <br/>
+                                 artículos
+                            </div>
+                          </div>
+                        </a>
+                    </li> `
+        })
+        .join('');
+
+        return categoryList + searchItems;
     }
 
     async function fetchSearchResults(search : string) {
@@ -139,19 +175,27 @@
           throw new Error("Something went wrong…please try again");
         }
         const data = await res.json();
-        SEARCH_DATA = data;
+        console.log(data);
+        SEARCH_DATA = data.items;
+        SEARCH_CATEGORY_DATA = data.categories;
       } catch (e) {
         console.error(e);
       }
     }
     if (SEARCH_DATA && !FUSE_INSTANCE) {
       FUSE_INSTANCE = new Fuse(SEARCH_DATA, FUSE_OPTIONS);
+      FUSE_CATEGORY_INSTANCE = new Fuse(SEARCH_CATEGORY_DATA, FUSE_CATEGORY_OPTIONS);
     }
     if (!FUSE_INSTANCE) return;
     const searchResult = FUSE_INSTANCE.search(search);
+    const categoryResult = FUSE_CATEGORY_INSTANCE.search(search);
+    const results = {
+      items: searchResult,
+      categories: categoryResult
+    }
     resultsList.innerHTML =
       searchResult.length > 0
-        ? generateSearchList(searchResult)
+        ? generateSearchList(results)
         : "No results found…";
   }
 
