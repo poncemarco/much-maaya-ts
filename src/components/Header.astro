@@ -95,7 +95,8 @@
 
 
     // init 
-    search.placeholder = localStorage.getItem('search') ?? 'Busca por producto, categoria o marca';
+    const storedSearch = localStorage.getItem('search');
+    search.placeholder = (storedSearch !== null && storedSearch !== '') ? storedSearch : 'Busca por producto, categoría o marca';
     if (search.placeholder === '') {
         search.placeholder = 'Busca por producto, categoria o marca';
     }
