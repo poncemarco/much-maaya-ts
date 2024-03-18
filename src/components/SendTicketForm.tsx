@@ -3,6 +3,7 @@ import { useStore } from '@nanostores/react';
 import { ticketItems, OutterItems } from '../ticketStore';
 import { sendOrder } from '../services/order';
 import { removeOutterItem } from '../ticketStore';
+import AddressForm from './AddressForm';
 import { type NewOrder, type IDQuantityList, type OutterItem, type User} from '../types/api';
 
 export default function SendTicketForm() {
@@ -12,7 +13,7 @@ export default function SendTicketForm() {
     const [couppon, setCouppon] = useState('');
     const [orderSent, setOrderSent] = useState(false);
     const [sendingOrder, setSendingOrder] = useState(false);
-    const [ readyToSend, setReadyToSend] = useState(false); 
+    const [readyToSend, setReadyToSend] = useState(false); 
     const [error, setError] = useState({
         phone: "",
         name: "",
@@ -204,7 +205,7 @@ export default function SendTicketForm() {
                                 onChange={(e) => setEmail(e.target.value)}
                                 required/>
                         </div>
-                        <div className="mb-5 mb-8">
+                        <div className="mb-8">
                             <label htmlFor="tel" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cupón</label>
                             <input 
                                 type="text" 
@@ -217,6 +218,7 @@ export default function SendTicketForm() {
                             </div>
                             <div className="flex items-start mb-5">
                         </div>
+                        <AddressForm />
                         <button 
                             onClick={(e) => sendTicket(e)}
                             className="text-white bg-blue-700 mb-12 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" 

@@ -1,27 +1,35 @@
-import { fetchItems } from '../services/items'
+import { fetchItems, fetchCategories } from '../services/items';
 
 async function getItems() {
-    const items = await fetchItems();
-    return items.map((item) => {
+    try {
+        const items = await fetchItems();
+        const categories = await fetchCategories();
+        
         return {
-            title: item.name,
-            price: item.price,
-            unit: item.unit,
-            id: item.id,
-            image: item.image,
-            category: item.category,
-            slug: item.slug
+            items: items,
+            categories: categories
         };
-    });
+    } catch (error) {
+        console.error('Error fetching items or categories:', error);
+        throw error; // Propaga el error para manejarlo más adelante si es necesario
+    }
 }
 
-
 export async function GET({}) {
-    return new Response(JSON.stringify(await getItems()),
-    {
-        status: 200,
-        headers: {
-            "Content-Type": "application/json"
-        },
-    });
-} 
+    try {
+        const data = await getItems();
+        return new Response(JSON.stringify(data), {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json"
+            },
+        });
+    } catch (error) {
+        return new Response('Internal Server Error', {
+            status: 500,
+            headers: {
+                "Content-Type": "text/plain"
+            },
+        });
+    }
+}
