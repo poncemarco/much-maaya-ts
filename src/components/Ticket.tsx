@@ -76,7 +76,7 @@ export default function Ticket() {
                             {Object.values($ticketItems).map((item) => (
                                 <li className="flex items-center gap-4" key={item.name}>
                                 <img
-                                    src={SITE_MEDIA + item.thumbnail}
+                                    src={item.thumbnail}
                                     alt=""
                                     className="h-16 w-16 rounded object-cover"
                                 />

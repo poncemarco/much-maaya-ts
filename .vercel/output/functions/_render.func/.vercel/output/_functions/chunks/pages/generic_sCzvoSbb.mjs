@@ -127,7 +127,7 @@ const $$Image = createComponent(async ($$result, $$props, $$slots) => {
     additionalAttributes.srcset = image.srcSet.attribute;
   }
   return renderTemplate`${maybeRenderHead()}<img${addAttribute(image.src, "src")}${spreadAttributes(additionalAttributes)}${spreadAttributes(image.attributes)}>`;
-}, "/Users/marco_cap/Documents/Documents - Marco\u2019s Mac mini/ws/Astro/muuch-maaya-ts/node_modules/astro/components/Image.astro", void 0);
+}, "/Volumes/externalssd/ws/Astro/muuch-maaya-ts/node_modules/astro/components/Image.astro", void 0);
 
 const $$Astro = createAstro("https://muuch-maaya.com");
 const $$Picture = createComponent(async ($$result, $$props, $$slots) => {
@@ -167,10 +167,10 @@ const $$Picture = createComponent(async ($$result, $$props, $$slots) => {
     const srcsetAttribute = props.densities || !props.densities && !props.widths ? `${image.src}${image.srcSet.values.length > 0 ? ", " + image.srcSet.attribute : ""}` : image.srcSet.attribute;
     return renderTemplate`<source${addAttribute(srcsetAttribute, "srcset")}${addAttribute("image/" + image.options.format, "type")}${spreadAttributes(sourceAdditionaAttributes)}>`;
   })} <img${addAttribute(fallbackImage.src, "src")}${spreadAttributes(imgAdditionalAttributes)}${spreadAttributes(fallbackImage.attributes)}> </picture>`;
-}, "/Users/marco_cap/Documents/Documents - Marco\u2019s Mac mini/ws/Astro/muuch-maaya-ts/node_modules/astro/components/Picture.astro", void 0);
+}, "/Volumes/externalssd/ws/Astro/muuch-maaya-ts/node_modules/astro/components/Picture.astro", void 0);
 
 const imageConfig = {"service":{"entrypoint":"astro/assets/services/sharp","config":{}},"domains":[],"remotePatterns":[]};
-					new URL("file:///Users/marco_cap/Documents/Documents%20-%20Marco%E2%80%99s%20Mac%20mini/ws/Astro/muuch-maaya-ts/.vercel/output/static/");
+					new URL("file:///Volumes/externalssd/ws/Astro/muuch-maaya-ts/.vercel/output/static/");
 					const getImage = async (options) => await getImage$1(options, imageConfig);
 
 async function loadRemoteImage(src) {

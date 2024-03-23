@@ -35,7 +35,6 @@
 <script>
   import DOMPurify from 'dompurify';
   import Fuse from 'fuse.js';
-  import { SITE_MEDIA } from '../consts';
 
   document.addEventListener('astro:page-load', () => {
   //variables 
@@ -118,7 +117,7 @@
                         <a href="/catalogo/${slug}">
                           <div class="flex items-center space-x-4 rtl:space-x-reverse">
                             <div class="flex-shrink-0">
-                                <img class="w-8 h-8 rounded-full" src="${SITE_MEDIA + thumbnail}" alt="Neil image">
+                                <img class="w-8 h-8 rounded-full" src="${ thumbnail}" alt="Neil image">
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
