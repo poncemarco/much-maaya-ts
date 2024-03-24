@@ -259,9 +259,3 @@ const typeMap: any = {
   }
 
 
-  export interface Category {
-    id:              string;
-    name:            string;
-    number_of_items: number;
-}
-

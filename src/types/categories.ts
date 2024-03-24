@@ -11,6 +11,15 @@ export interface Categories {
     id:            number;
     name:          string;
     number_of_items: number;
+    image: ImagePath;
+}
+
+export interface ImagePath {
+    image_path:   Primary;
+}
+
+export interface Primary {
+    primary:      string;
 }
 
 // Converts JSON strings to/from your types
