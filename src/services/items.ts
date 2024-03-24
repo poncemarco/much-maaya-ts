@@ -17,6 +17,6 @@ export const fetchItem = async ({ id }: { id:string}) => {
 export const fetchCategories = async () => {
     const res = await fetch(`${SITE_URL}/api/v1/categories/`)
     const categories = await (res.json()) as Categories[]
-    return categories
+    return categories.sort((a, b) => b.number_of_items - a.number_of_items)
 }
 
