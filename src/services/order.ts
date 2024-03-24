@@ -1,9 +1,10 @@
 import { type IDQuantityList, type OutterItem, type NewOrder} from '../types/api';
 import { SITE_URL } from '../consts';
+import type { OrderResponse } from 'types/orders';
 
-export const sendOrder = async (order : NewOrder): Promise<boolean> => {
-    const { user, items: $ticketItems, outterItems:$outterItems, couppon } = order;
-    const url = 'https://rama-ws.com/api/v1/orders/';
+export const sendOrder = async (order : NewOrder): Promise<OrderResponse> => {
+    const { user, items: $ticketItems, outterItems:$outterItems, couppon, address } = order;
+    const url = `${SITE_URL}/api/v1/orders/`;
     let ticket : IDQuantityList[]
         ticket = Object.values($ticketItems).map((ticketItem) => {
             const item: IDQuantityList = {
@@ -31,23 +32,28 @@ export const sendOrder = async (order : NewOrder): Promise<boolean> => {
             email: user.email,
             user: user,
             couppon: couppon,
+            address: address,
         };
     
-        try {
-            const res = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
-    
-            if (!res.ok) {
-                throw new Error('Network response was not ok');
-            }
-    
-            return true; // Si la solicitud se completa correctamente
-        } catch (error) {
-            return false; // Si ocurre algún error
+        
+        const res = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (!res.ok) {
+            throw new Error('Network response was not ok');
         }
+
+        const response = await res.json();
+        const orderResponse: OrderResponse = {
+            success: true,
+            id: response.id,
+            discount: response.discount,
+        };
+        return orderResponse;
+        
     };

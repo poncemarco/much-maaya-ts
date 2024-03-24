@@ -19,8 +19,6 @@ export default function CardCatalog({ name,  price, image, id, unit, category }:
     const [quantity, setQuantity] = useState(1);
     const [showToast, setShowToast] = useState(false);
     const [lastQuantity, setLastQuantity] = useState(0);
-
-    console.log(image.image_path.thumbnail)
     
     const item: TicketItemdisplayInfo = {
         id: id,
@@ -39,7 +37,7 @@ export default function CardCatalog({ name,  price, image, id, unit, category }:
     const { primary } = image_path;
     
     const handleSubtract = () => {
-        if (quantity === 0) return;
+        if (quantity === 1) return;
         setQuantity(quantity - 1);
     };
 

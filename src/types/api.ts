@@ -6,7 +6,7 @@
 //
 // These functions will throw an error if the JSON doesn't
 // match the expected interface, even if the JSON is valid.
-
+import { type Address } from "./locations";
 export interface Items {
     links:        Links;
     start:        number;
@@ -256,6 +256,7 @@ const typeMap: any = {
     email: string
     user: User
     couppon: string | null
+    address: Address
   }
 
 

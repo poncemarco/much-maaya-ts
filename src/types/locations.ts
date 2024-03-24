@@ -19,6 +19,36 @@ export interface Neighborhood {
     name: string;
 }
 
+export interface Address {
+    street: string;
+    city: string;
+    state: string;
+    county: string;
+    neighborhood: string;
+    complement: string;
+  }
+
+export interface AddressFormProps {
+    address: {
+      street: string;
+      city: string;
+      state: string;
+      county: string;
+      neighborhood: string;
+      complement: string;
+    };
+    setAddress: React.Dispatch<
+      React.SetStateAction<{
+        street: string;
+        city: string;
+        state: string;
+        county: string;
+        neighborhood: string;
+        complement: string;
+      }>
+    >;
+  }
+
 // Converts JSON strings to/from your types
 // and asserts the results of JSON.parse at runtime
 export class Convert {

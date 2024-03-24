@@ -22,25 +22,27 @@ const { prev, next } = url
 	title="Categorias" 
 	description=`${total} categorías diferentes`
 	/>
-    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {categories.map(({id, name, number_of_items, image}:  Categories) => (
-            <CardCategory 
-                id={id}
-                name={name}
-                numberOfItems={number_of_items}
-                image={image}
+    <div class="max-w-screen-2xl">
+        <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {categories.map(({id, name, number_of_items, image}:  Categories) => (
+                <CardCategory 
+                    id={id}
+                    name={name}
+                    numberOfItems={number_of_items}
+                    image={image}
+                />
+            ))}
+    
+        </div>
+        <div class="flex items-center justify-center my-8">
+            <Pagination 
+            firstPage={prev ? '/categorias' : null}
+            previousPage={prev ? prev : null}
+            nextPage={next ? next : null}
+            lastPage={next ? `/categorias/${Math.round(total / size)}` : null}
+            currentPage={currentPage}
+            totalPages={Math.round(total / size) }
             />
-        ))}
-
-	</div>
-    <div class="flex items-center justify-center my-8">
-        <Pagination 
-        firstPage={prev ? '/categorias' : null}
-        previousPage={prev ? prev : null}
-        nextPage={next ? next : null}
-        lastPage={next ? `/categorias/${Math.round(total / size)}` : null}
-        currentPage={currentPage}
-        totalPages={Math.round(total / size) }
-        />
+        </div>
     </div>
 </Layout>
