@@ -65,7 +65,6 @@ export default function CardCatalog({ name,  price, image, id, unit, category }:
             <span className="absolute top-3 right-3 bg-blue-700 text-white px-2 py-2 rounded-full">
               {quantity} 
             </span>
-          
           )}
           <div className="px-5 pb-5">
             <h2 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{name}</h2>
@@ -86,6 +85,8 @@ export default function CardCatalog({ name,  price, image, id, unit, category }:
                 ) : (
                     <IntCounter 
                         handleSubtract={handleSubtract}
+                        quantity={quantity}
+                        unit={unit}
                         handleAdd={handleAdd}
                         saveItem={saveItem}
                         price={price}
