@@ -18,7 +18,8 @@ export default function SendTicketForm() {
         state: '',
         county: '',
         neighborhood: '',
-        complement: ''
+        complement: '',
+        postalCode: '',
     };
     const initialOrderResponse: OrderResponse = {
         success: false,
@@ -112,10 +113,14 @@ export default function SendTicketForm() {
             address: address,
         };
 
-        // console.log(data);
+        console.log(data);
 
         const response = await sendOrder(data);
-        // const response = true // Simular la respuesta de la solicitud
+        // const response = {
+        //     success: false,
+        //     id: null,
+        //     discount: null,
+        // } // Simular la respuesta de la solicitud
 
         // Actualizar el estado del pedido enviado y el envío del pedido
         if (response.success) {

@@ -26,6 +26,7 @@ export interface Address {
     county: string;
     neighborhood: string;
     complement: string;
+    postalCode: string;
   }
 
 export interface AddressFormProps {
@@ -36,6 +37,7 @@ export interface AddressFormProps {
       county: string;
       neighborhood: string;
       complement: string;
+      postalCode: string;
     };
     setAddress: React.Dispatch<
       React.SetStateAction<{
@@ -45,6 +47,7 @@ export interface AddressFormProps {
         county: string;
         neighborhood: string;
         complement: string;
+        postalCode: string;
       }>
     >;
   }

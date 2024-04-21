@@ -30,6 +30,7 @@ const AddressForm = ({ address, setAddress}:AddressFormProps) => {
                     county: response.county,
                     neighborhood: response.neighborhoods[0].name,
                     complement: '',
+                    postalCode: postalCode,
                 });
                 setNeighborhoods(neighborhoods); // Actualizar el estado de neighborhoods
                 setErrorNotification(''); // Limpiar cualquier notificación de error anterior

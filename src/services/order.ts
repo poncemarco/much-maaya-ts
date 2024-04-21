@@ -45,7 +45,11 @@ export const sendOrder = async (order : NewOrder): Promise<OrderResponse> => {
         });
 
         if (!res.ok) {
-            throw new Error('Network response was not ok');
+            return {
+                success: false,
+                id: null,
+                discount: null,
+            }
         }
 
         const response = await res.json();

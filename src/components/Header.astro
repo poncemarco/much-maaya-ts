@@ -17,8 +17,9 @@
           <input 
             type="search" 
             id="search" 
-            class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+            class="block w-full p-4 ps-10 text-sm text-gray-600 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
             placeholder="Busca por producto, categoria o marca" 
+            aria-label="Search"
             required
           >
       </div>
@@ -70,7 +71,9 @@
             }],
         threshold: 0.5,
     };
-    const SPINNER = `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-loader-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" id="spinner">
+    const SPINNER = `
+                    <div class="flex item-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="text-gray-900 icon icon-tabler icon-tabler-loader-2 dark:text-white" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" id="spinner">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                         <path d="M12 3a9 9 0 1 0 9 9" />
                         <style>
@@ -85,7 +88,11 @@
                                     transform: rotate(360deg);
                                 }
                             }
-                    </svg>`;
+                    </svg>
+                    <p class="text-gray-900 dark:text-white icon-tabler-loader-2 ml-2">Buscando...</p>
+                    </div>
+                    
+                    `;
 
     //selectors
     const search = document.querySelector('#search') as HTMLInputElement;
@@ -200,7 +207,7 @@
   }
 
     function updateDocumentTitle(search: HTMLInputElement) {
-        document.title = search ? `Resultados de búsqueda para: ${search}` : 'Search';
+        document.title = search ? `Resultados de búsqueda para: ${search}` : 'Búsqueda de productos';
     } 
 
     function updateSearchReadout(search : URLSearchParams) {
@@ -249,10 +256,16 @@
         const update = setLocalSearchData(searchInput);
         if (!update) return;
         const searchTerm = searchInput;
+        if (searchTerm.length === 0) {
+            resultsList.innerHTML = "";
+            searchReadout.innerHTML = "";
+            return;
+        }
         updateDocumentTitle(searchTerm);
         updateSearchReadout(searchTerm);
         fetchSearchResults(searchTerm);
         updateSearchPageURL(searchTerm);
+        search.placeholder = (storedSearch !== null && storedSearch !== '') ? storedSearch : 'Busca por producto, categoría o marca';
         
     });
   });
